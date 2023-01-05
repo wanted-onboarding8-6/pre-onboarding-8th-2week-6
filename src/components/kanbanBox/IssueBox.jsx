@@ -84,7 +84,6 @@ export const IssueBox = ({
 
   return (
     <Container
-      draggable="true"
       onDragStart={onDragStart}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}

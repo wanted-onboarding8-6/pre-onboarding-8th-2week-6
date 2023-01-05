@@ -38,7 +38,12 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
 
   return (
     <ModalPage showModal={showModal} closeModal={closeModal}>
-      <ModalForm onClick={() => setautoComplite(false)}>
+      <ModalForm
+        onClick={(e) => {
+          e.stopPropagation();
+          setautoComplite(false);
+        }}
+      >
         <InputWarp>
           <label htmlFor='title'>제목</label>
           <input

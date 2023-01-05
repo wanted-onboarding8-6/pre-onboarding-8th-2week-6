@@ -45,7 +45,8 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
     });
   };
 
-  const onDragEnter = () => {
+  const onDragEnter = (e) => {
+    e.preventDefault();
     setDndStatus({
       ...dndStatus,
       isDragOver: false,
@@ -155,6 +156,11 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
 
   return (
     <>
+      <DetailModal
+        showModal={showModal}
+        closeModal={closeAddIssueModal}
+        cardData={cardData}
+      />
       <DndHr
         style={
           dndPosition === "top"
@@ -167,17 +173,12 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
       />
       <Container
         onClick={openAddIssueModal}
-        draggable="true"
         onDragStart={onDragStart}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
+        draggable
       >
-        <DetailModal
-          showModal={showModal}
-          closeModal={closeAddIssueModal}
-          cardData={cardData}
-        />
         <CardTop onDragOver={onDragOverTop}>
           <span>
             {cardData?.id} # - {cardData?.title}

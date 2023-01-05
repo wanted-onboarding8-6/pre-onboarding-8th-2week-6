@@ -46,15 +46,6 @@
       "id": 6
     },
     {
-      "sortId": 9.997000000000002,
-      "title": "gdgd",
-      "content": "gdgdgd",
-      "deadline": "",
-      "status": 2,
-      "name": "dgdgdg",
-      "id": 7
-    },
-    {
       "sortId": 9.998000000000001,
       "title": "ggd",
       "content": "dgdgg",
@@ -82,7 +73,7 @@
       "id": 10
     },
     {
-      "sortId": 11.001999999999999,
+      "sortId": 10.988000000000007,
       "title": "dg",
       "content": "gdgdgd",
       "deadline": "",
@@ -91,16 +82,16 @@
       "id": 11
     },
     {
-      "sortId": 6.001,
+      "sortId": 11.001999999999999,
       "title": "gd",
       "content": "gdgddgd",
       "deadline": "",
-      "status": 1,
+      "status": 0,
       "name": "gd",
       "id": 12
     },
     {
-      "sortId": 6.001,
+      "sortId": 5.996999999999999,
       "title": "gd",
       "content": "gdgdgd",
       "deadline": "",
@@ -109,7 +100,7 @@
       "id": 13
     },
     {
-      "sortId": 11.001,
+      "sortId": 11.002999999999998,
       "title": "ㅎㅇㅎㅇㅎ",
       "content": "모달 버그 꿀밤마렵네요 ^ ^",
       "deadline": "2023-01-10T23:57",
@@ -118,7 +109,7 @@
       "id": 14
     },
     {
-      "sortId": 11.002999999999998,
+      "sortId": 11.001,
       "title": "ㅎㅇㅎㅇ",
       "content": "ㅇㅎㅇㅇㅎ",
       "deadline": "2023-01-10T23:57",
@@ -127,31 +118,13 @@
       "id": 15
     },
     {
-      "sortId": 11.002999999999998,
-      "title": "ㅎㅇㅇㅎㅎㅇ",
-      "content": "ㅇㅎㅎㅇ",
-      "deadline": "2023-01-10T23:57",
-      "status": 0,
-      "name": "이요한",
-      "id": 16
-    },
-    {
-      "sortId": 5.996999999999999,
+      "sortId": 10.997000000000002,
       "title": "ㅎㅇㅇㅎ",
       "content": "ㅇㅎㅇㅎ\n",
       "deadline": "2023-01-10T23:57",
-      "status": 1,
-      "name": "이요한",
-      "id": 17
-    },
-    {
-      "sortId": 11.001999999999999,
-      "title": "ㅎㅇㅇㅎ",
-      "content": "ㅇㅎㅇㅎ",
-      "deadline": "2023-01-10T23:57",
       "status": 0,
       "name": "이요한",
-      "id": 18
+      "id": 17
     }
   ],
   "name": [

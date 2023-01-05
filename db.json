@@ -1,61 +1,52 @@
 {
   "issue": [
     {
-      "sortId": 10,
+      "sortId": 10.998000000000001,
       "title": "gdgd",
       "content": "gdd",
       "deadline": "",
-      "status": 2,
+      "status": 1,
       "name": "dgdgd",
       "id": 2
     },
     {
-      "sortId": 6.001,
-      "title": "dg",
-      "content": "gddgdg",
-      "deadline": "",
-      "status": 1,
-      "name": "dgdgd",
-      "id": 3
-    },
-    {
-      "sortId": 5.997999999999999,
+      "sortId": 9.998000000000001,
       "title": "gddg",
       "content": "dgdgg",
       "deadline": "",
-      "status": 1,
+      "status": 0,
       "name": "dgdgd",
       "id": 4
     },
     {
-      "sortId": 10.001,
+      "sortId": 10.998000000000001,
       "title": "dgg",
       "content": "dgd",
       "deadline": "",
-      "status": 2,
+      "status": 0,
       "name": "dgdgd",
       "id": 5
     },
     {
-      "sortId": 9.998000000000001,
+      "sortId": 10.998000000000001,
       "title": "gddggd",
       "content": "gddgdg",
       "deadline": "",
-      "status": 2,
+      "status": 0,
       "name": "dgdgdg",
       "id": 6
     },
     {
-      "sortId": 9.998000000000001,
+      "sortId": 10.999,
       "title": "ggd",
       "content": "dgdgg",
       "deadline": "",
-      "status": 2,
+      "status": 1,
       "name": "dgdgdg",
       "id": 8
     },
     {
-      "sortId": 9.999,
+      "sortId": 11,
       "title": "gdgd",
       "content": "gddgdg",
       "deadline": "",
@@ -64,29 +55,29 @@
       "id": 9
     },
     {
-      "sortId": 9.999,
+      "sortId": 5.995999999999999,
       "title": "ggddg",
       "content": "gdgd",
       "deadline": "",
-      "status": 2,
+      "status": 1,
       "name": "gd",
       "id": 10
     },
     {
-      "sortId": 10.988000000000007,
+      "sortId": 10.998000000000001,
       "title": "dg",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 0,
+      "status": 1,
       "name": "gd",
       "id": 11
     },
     {
-      "sortId": 11.001999999999999,
+      "sortId": 9.995000000000003,
       "title": "gd",
       "content": "gdgddgd",
       "deadline": "",
-      "status": 0,
+      "status": 2,
       "name": "gd",
       "id": 12
     },
@@ -95,21 +86,21 @@
       "title": "gd",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "gd",
       "id": 13
     },
     {
-      "sortId": 11.002999999999998,
+      "sortId": 5.993999999999998,
       "title": "ㅎㅇㅎㅇㅎ",
       "content": "모달 버그 꿀밤마렵네요 ^ ^",
       "deadline": "2023-01-10T23:57",
-      "status": 0,
+      "status": 1,
       "name": "이요한",
       "id": 14
     },
     {
-      "sortId": 11.001,
+      "sortId": 9.999,
       "title": "ㅎㅇㅎㅇ",
       "content": "ㅇㅎㅇㅇㅎ",
       "deadline": "2023-01-10T23:57",
@@ -118,11 +109,11 @@
       "id": 15
     },
     {
-      "sortId": 10.997000000000002,
+      "sortId": 5.996999999999999,
       "title": "ㅎㅇㅇㅎ",
       "content": "ㅇㅎㅇㅎ\n",
       "deadline": "2023-01-10T23:57",
-      "status": 0,
+      "status": 2,
       "name": "이요한",
       "id": 17
     }

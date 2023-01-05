@@ -5,6 +5,8 @@ import { AddModal } from "../modal/AddModal";
 import { useDispatch } from "react-redux";
 import { updateIssue } from "../../redux/issueSlice";
 import { dragFunction } from "./Card";
+import { useSelector } from "react-redux";
+import { updateDndStatus } from "../../redux/dndSlice";
 
 export const IssueBox = ({
   statusNum,
@@ -14,6 +16,7 @@ export const IssueBox = ({
   setDndStatus,
 }) => {
   const dispatch = useDispatch();
+  const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
 
   let issueName =
     statusNum === 0 ? "Todo" : statusNum === 1 ? "Working" : "Done";
@@ -28,63 +31,57 @@ export const IssueBox = ({
   };
 
   // empty box drop event
-
-  const [dndPosition, setDndPosition] = useState("none");
-
-  const onDragStart = () => {};
-
   const onDragEnter = () => {
-    setDndStatus({
-      ...dndStatus,
-      isDragOver: false,
-      position: "none",
-    });
-    setDndPosition("none");
+    dispatch(
+      updateDndStatus({
+        ...dudStatusData,
+        isDragOver: false,
+        position: "none",
+      })
+    );
   };
 
   const onDragLeave = (e) => {
     dragFunction(e, "ondragleave");
-    setDndStatus({ ...dndStatus, isDragOver: false, position: "none" });
-    setDndPosition("none");
+    dispatch(
+      updateDndStatus({
+        ...dudStatusData,
+        isDragOver: false,
+        position: "none",
+      })
+    );
   };
 
   const onDragOver = (e) => {
     dragFunction(e, "ondragover");
-    setDndStatus({
-      ...dndStatus,
-      isDragOver: true,
-      position: "top",
-      prevPosition: "top",
-    });
-    setDndPosition("top");
   };
 
   // on Drop & fetch
   const onDrop = (e) => {
     dragFunction(e, "ondrop");
-
-    setDndStatus({
-      ...dndStatus,
-      isDragOver: false,
-      position: "none",
-      endStatus: statusNum,
-    });
-    setDndPosition("none");
-
+    dispatch(
+      updateDndStatus({
+        ...dudStatusData,
+        isDragOver: false,
+        endStatus: statusNum,
+      })
+    );
     updateIssueFormEmpty();
   };
   console.log("ㅎㅇ", dndStatus);
 
   const updateIssueFormEmpty = () => {
     let startDCardData = [...issueData].filter(
-      (item) => item.id === dndStatus.startId
+      (item) => item.id === dudStatusData.startId
     )[0];
-    dispatch(updateIssue({ ...startDCardData, status: dndStatus.endStatus }));
+    console.log("업뎃데이터", startDCardData);
+    dispatch(
+      updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
+    );
   };
 
   return (
     <Container
-      onDragStart={onDragStart}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}

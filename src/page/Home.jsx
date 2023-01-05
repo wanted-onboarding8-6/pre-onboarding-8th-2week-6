@@ -24,6 +24,7 @@ export default function Home() {
     }, 1500);
   }, [dispatch]);
 
+  // get last sort id
   useEffect(() => {
     setTimeout(() => {
       let newIssueArr = [...issue];
@@ -47,22 +48,9 @@ export default function Home() {
     endStatus: 0,
   });
 
-  // dnd form data
-  useEffect(() => {
-    if (dndStatus.startId !== 0) {
-      setDndStatus({
-        ...dndStatus,
-      });
-    }
-  }, [dndStatus.endStatus, issue]);
-
-  // console.log("이슈데이터", newFormData);
-  console.log("스테이터스 데이터", dndStatus);
-
   return (
     <Container>
       {isLoading ? <LoadingSpinner /> : null}
-
       <HeaderWrap>
         <p>Issue Tracker</p>
         <hr />

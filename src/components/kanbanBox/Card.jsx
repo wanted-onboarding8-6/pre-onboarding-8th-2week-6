@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteIssue } from "../../redux/issueSlice";
-import { DetailModal } from "../modal/DetailModal";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { updateIssue } from "../../redux/issueSlice";
+import { deleteIssue } from "../../redux/issueSlice";
 import { updateDndStatus } from "../../redux/dndSlice";
+import { DetailModal } from "../modal/DetailModal";
 
 // dnd function
 export const dragFunction = (e, type) => {
@@ -14,7 +14,7 @@ export const dragFunction = (e, type) => {
 };
 
 // component start ##############
-export const Card = ({ cardData, dndStatus, setDndStatus }) => {
+export const Card = ({ cardData }) => {
   const dispatch = useDispatch();
   const { issue } = useSelector((state) => state.issueSlice);
   const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
@@ -39,7 +39,7 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
   console.log("리덕스 ㅎㅇ", dudStatusData);
   const [dndPosition, setDndPosition] = useState("none");
 
-  const onDragStart = () => {
+  const onDragStart = (e) => {
     dispatch(
       updateDndStatus({
         ...dudStatusData,
@@ -112,21 +112,11 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
       })
     );
     setDndPosition("none");
-
     updateIssueHandler();
+    setTimeout(() => {}, 500);
   };
 
   const updateIssueHandler = () => {
-    // except argument
-    const forRejectArr = [...issue].filter(
-      (item) => item.status === dudStatusData.startStatus
-    );
-    const cardIndex = forRejectArr.findIndex(
-      (item) => item.id === dudStatusData.startId
-    );
-    console.log("체크용", forRejectArr);
-    console.log("체크용", cardIndex);
-
     // drag data
     const startIssueData = [...issue].filter(
       (item) => item.id === dudStatusData.startId
@@ -144,10 +134,6 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
         dropCardIndexNumber = index;
       }
     });
-    console.log("어딨냐", dudStatusData);
-    console.log("어딨냐1", thisStatusArr);
-    console.log("어딨냐2", dropedCardIndex);
-    console.log("어딨냐3", dropCardIndexNumber);
 
     // new critica
     if (dudStatusData.prevPosition === "bottom") {
@@ -193,8 +179,9 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         draggable
+        onDragOver={onDragOverTop}
       >
-        <CardTop onDragOver={onDragOverTop}>
+        <CardTop>
           <span>
             {cardData?.id} # - {cardData?.title}
           </span>
@@ -202,10 +189,14 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
             <img src={require("../../images/delete.png")} alt="삭제버튼" />
           </ImgWrap>
         </CardTop>
-        <CardBody onDragOver={onDragOverTop}>
+        <CardBody
+        // onDragOver={onDragOverTop}
+        >
           <p>{cardData?.content}</p>
         </CardBody>
-        <CardFooter onDragOver={onDragOverBottom}>
+        <CardFooter
+        // onDragOver={onDragOverBottom}
+        >
           <span>{cardData?.name}</span>
           <span>deadline : ~ {cardData?.deadline.replace("T", " / ")}</span>
         </CardFooter>

@@ -1,20 +1,13 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { Card } from "./Card";
-import { AddModal } from "../modal/AddModal";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { updateIssue } from "../../redux/issueSlice";
+import { Card } from "./Card";
 import { dragFunction } from "./Card";
-import { useSelector } from "react-redux";
+import { AddModal } from "../modal/AddModal";
 import { updateDndStatus } from "../../redux/dndSlice";
 
-export const IssueBox = ({
-  statusNum,
-  issueData,
-  lastSortId,
-  dndStatus,
-  setDndStatus,
-}) => {
+export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
   const dispatch = useDispatch();
   const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
 
@@ -68,7 +61,7 @@ export const IssueBox = ({
     );
     updateIssueFormEmpty();
   };
-  console.log("ㅎㅇ", dndStatus);
+  // console.log("ㅎㅇ", dndStatus);
 
   const updateIssueFormEmpty = () => {
     let startDCardData = [...issueData].filter(
@@ -103,16 +96,9 @@ export const IssueBox = ({
       </BoradTop>
       <CardBox>
         {issueData
-          ?.map((item, index) => {
+          ?.map((item) => {
             if (item.status === statusNum) {
-              return (
-                <Card
-                  key={item.id}
-                  cardData={item}
-                  dndStatus={dndStatus}
-                  setDndStatus={setDndStatus}
-                />
-              );
+              return <Card key={item.id} cardData={item} />;
             }
           })
           .sort((a, b) => a.sortId - b.sortId)}

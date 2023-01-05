@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IssueBox } from "../components/kanbanBox/IssueBox";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { IssueBox } from "../components/kanbanBox/IssueBox";
 import { getIssues } from "../redux/issueSlice";
 import { LoadingSpinner } from "../components/loadingSpinner/LoadingSpinner";
 
@@ -10,10 +10,18 @@ export default function Home() {
   const { issue } = useSelector((state) => state.issueSlice);
   const [isLoading, setisLoading] = useState(false);
 
-  const [newIssueData, setnewIssueData] = useState(issue);
+  const [newIssueData, setnewIssueData] = useState();
 
   // get last sort id
   const [getLastSortId, setGetLastSortId] = useState();
+  useEffect(() => {
+    setTimeout(() => {
+      // let newIssueArr = [...issue];
+      // newIssueArr.sort((a, b) => b.sortId - a.sortId);
+      // setGetLastSortId(newIssueArr[0].sortId);
+      setnewIssueData([...issue].sort((a, b) => a.sortId - b.sortId));
+    }, 500);
+  }, [issue]);
 
   // data fetch
   useEffect(() => {
@@ -24,29 +32,8 @@ export default function Home() {
     }, 1500);
   }, [dispatch]);
 
-  // get last sort id
-  useEffect(() => {
-    setTimeout(() => {
-      let newIssueArr = [...issue];
-      newIssueArr.sort((a, b) => b.sortId - a.sortId);
-      setGetLastSortId(newIssueArr[0].sortId);
-      setnewIssueData([...issue].sort((a, b) => a.sortId - b.sortId));
-    }, 500);
-  }, [issue]);
-
   // data array
   const issueBoxData = [newIssueData, newIssueData, newIssueData];
-
-  // dnd status for Card.jsx
-  const [dndStatus, setDndStatus] = useState({
-    isDragOver: false,
-    position: "none",
-    prevPosition: "none",
-    startId: 0,
-    endId: 0,
-    startStatus: 0,
-    endStatus: 0,
-  });
 
   return (
     <Container>
@@ -62,9 +49,7 @@ export default function Home() {
               key={index}
               statusNum={index}
               issueData={item}
-              lastSortId={getLastSortId}
-              dndStatus={dndStatus}
-              setDndStatus={setDndStatus}
+              lastSortId={issueBoxData[0]?.length}
             />
           );
         })}

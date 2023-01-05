@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { nameAPI } from "../../api/api";
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { nameAPI } from '../../api/api';
 
 export const AutoCompliteInput = ({
   onChangeHandler,
@@ -10,6 +10,7 @@ export const AutoCompliteInput = ({
 }) => {
   //name data fetch
   const [nameData, setNameData] = useState([]);
+
   const nameDataFetch = async () => {
     const data = await nameAPI.getNames().then((res) => {
       setNameData(res.data);
@@ -21,36 +22,29 @@ export const AutoCompliteInput = ({
     nameDataFetch();
   }, [setNameData]);
 
+  let newNameData = nameData?.filter(
+    (item) =>
+      item.name.includes(name) === true && item.name.indexOf(name) !== -1
+  );
+
   return (
-    <>
-      <AutoComplite style={!autoComplite ? { display: "none" } : null}>
-        {nameData.length === 0 ? (
-          <AutoCompliteItem>일치하는 담당자가 없습니다.</AutoCompliteItem>
-        ) : (
-          nameData
-            ?.filter(
-              (item) =>
-                item.name.includes(name) === true &&
-                item.name.indexOf(name) === 0
-            )
-            .map((item, index) => {
-              if (item?.name) {
-                return (
-                  <AutoCompliteItem
-                    key={index}
-                    onClick={() => {
-                      onChangeHandler(item?.name, "name");
-                      setautoComplite(false);
-                    }}
-                  >
-                    {item?.name}
-                  </AutoCompliteItem>
-                );
-              }
-            })
-        )}
-      </AutoComplite>
-    </>
+    <AutoComplite style={!autoComplite ? { display: 'none' } : null}>
+      {newNameData.length === 0 && (
+        <AutoCompliteItem>일치하는 담당자가 없습니다.</AutoCompliteItem>
+      )}
+      {newNameData &&
+        newNameData.map((item, index) => (
+          <AutoCompliteItem
+            key={index}
+            onClick={(e) => {
+              onChangeHandler(e);
+              setautoComplite(false);
+            }}
+          >
+            {item?.name}
+          </AutoCompliteItem>
+        ))}
+    </AutoComplite>
   );
 };
 

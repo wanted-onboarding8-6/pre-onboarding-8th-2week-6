@@ -1,48 +1,36 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { ModalPage } from "../../util/modal";
-import { AutoCompliteInput } from "./AutoComplite";
-import { useDispatch } from "react-redux";
-import { addIssue } from "../../redux/issueSlice";
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { ModalPage } from '../../util/modal';
+import { AutoCompliteInput } from './AutoComplite';
+import { useDispatch } from 'react-redux';
+import { addIssue } from '../../redux/issueSlice';
 
 export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
   const dispatch = useDispatch();
 
   // form data
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState(statusNum);
-  const [name, setName] = useState("");
+  const [form, setForm] = useState({ status: statusNum, name: '' });
 
   // auto complite status
   const [autoComplite, setautoComplite] = useState(false);
+
   useEffect(() => {
-    if (name.length >= 1) setautoComplite(true);
-    if (name === "") setautoComplite(false);
-  }, [name]);
+    form.name.length > 0 ? setautoComplite(true) : setautoComplite(false);
+  }, [form.name]);
 
   // onChange form data handler
-  const onChangeHandler = (e, type) => {
-    if (type === "title") setTitle(e);
-    if (type === "content") setContent(e);
-    if (type === "name") setName(e);
-    if (type === "deadline") setDeadline(e);
-    if (type === "status") setStatus(e);
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+
+    if (name === 'status')
+      setForm((form) => ({ ...form, [name]: Number(value) }));
+    else setForm((form) => ({ ...form, [name]: value }));
   };
 
-  // send data
-  let formData = {
-    sortId: lastSortId + 1,
-    title: title,
-    content: content,
-    deadline: deadline,
-    status: status,
-    name: name,
-  };
+  let formData = { sortId: lastSortId + 1, ...form };
 
   const addIssueHandler = () => {
-    if (window.confirm("저장할까요?")) {
+    if (window.confirm('저장할까요?')) {
       dispatch(addIssue(formData));
     }
     closeModal();
@@ -57,59 +45,56 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
         }}
       >
         <InputWarp>
-          <label htmlFor="title">제목</label>
+          <label htmlFor='title'>제목</label>
           <input
-            onChange={(e) => {
-              onChangeHandler(e.target.value, "title");
-            }}
-            type="text"
-            id="title"
+            onChange={onChangeHandler}
+            type='text'
+            name='title'
+            value={form.title || ''}
+            id='title'
             maxLength={30}
           />
         </InputWarp>
         <InputWarp>
-          <label htmlFor="content">내용</label>
+          <label htmlFor='content'>내용</label>
           <textarea
-            onChange={(e) => {
-              onChangeHandler(e.target.value, "content");
-            }}
-            id="content"
-            cols="30"
-            rows="10"
+            onChange={onChangeHandler}
+            name='content'
+            id='content'
+            cols='30'
+            rows='10'
           />
         </InputWarp>
         <BottomInputWarp>
-          <label htmlFor="name">담당자</label>
+          <label htmlFor='name'>담당자</label>
           <input
-            onChange={(e) => {
-              onChangeHandler(e.target.value, "name");
-            }}
-            type="담당자"
-            id="name"
-            autoComplete="off"
-            value={name}
+            onChange={onChangeHandler}
+            type='담당자'
+            id='name'
+            name='name'
+            autoComplete='off'
+            value={form.name || ''}
           />
         </BottomInputWarp>
         <BottomInputWarp>
-          <label htmlFor="deadline">마감일</label>
+          <label htmlFor='deadline'>마감일</label>
           <input
-            onChange={(e) => {
-              onChangeHandler(e.target.value, "deadline");
-            }}
-            type="datetime-local"
-            id="deadline"
+            onChange={onChangeHandler}
+            type='datetime-local'
+            id='deadline'
+            name='deadline'
+            value={form.deadline || ''}
           />
         </BottomInputWarp>
         <StatusSelect>
           <select
-            onChange={(e) => {
-              onChangeHandler(e.target.value, "status");
-            }}
-            defaultValue={statusNum}
+            name='status'
+            onChange={onChangeHandler}
+            value={form.status || statusNum}
           >
-            <option value="0">Todo</option>
-            <option value="1">Working</option>
-            <option value="2">Done</option>
+            <option value='0'>Todo</option>
+            <option value='1'>Working</option>
+            <option value='2'>Done</option>
           </select>
         </StatusSelect>
         <ButtonWarp>
@@ -126,14 +111,14 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
               e.preventDefault();
               addIssueHandler();
             }}
-            type="submit"
+            type='submit'
           >
             저장
           </button>
         </ButtonWarp>
         <AutoCompliteInput
           onChangeHandler={onChangeHandler}
-          name={name}
+          name={form.name}
           autoComplite={autoComplite}
           setautoComplite={setautoComplite}
         />

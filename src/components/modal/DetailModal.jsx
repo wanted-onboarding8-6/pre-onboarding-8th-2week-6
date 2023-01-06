@@ -67,7 +67,7 @@ export const DetailModal = ({
         <BottomInputWarp>
           <label htmlFor="name">담당자</label>
           <input
-            onClick={() => setIsNameInputTouched(true)}
+            // onClick={() => setIsNameInputTouched(true)}
             onChange={onChangeHandler}
             type="담당자"
             name="name"

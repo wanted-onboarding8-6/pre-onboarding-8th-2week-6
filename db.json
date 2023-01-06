@@ -1,16 +1,16 @@
 {
   "issue": [
     {
-      "sortId": 5.972999999999991,
+      "sortId": 5.871999999999991,
       "title": "gdgd",
       "content": "gdd",
       "deadline": "",
-      "status": 2,
+      "status": 0,
       "name": "dgdgd",
       "id": 2
     },
     {
-      "sortId": 5.976999999999992,
+      "sortId": 5.777999999999993,
       "title": "gddg",
       "content": "dgdgg",
       "deadline": "",
@@ -19,34 +19,34 @@
       "id": 4
     },
     {
-      "sortId": 5.971999999999991,
+      "sortId": 5.677999999999994,
       "title": "dgg",
       "content": "dgd",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "dgdgd",
       "id": 5
     },
     {
-      "sortId": 5.977999999999993,
+      "sortId": 5.876999999999993,
       "title": "gddggd",
       "content": "gddgdg",
       "deadline": "",
-      "status": 2,
+      "status": 0,
       "name": "dgdgdg",
       "id": 6
     },
     {
-      "sortId": 5.972999999999991,
+      "sortId": 5.673999999999992,
       "title": "ggd",
       "content": "dgdgg",
       "deadline": "",
-      "status": 1,
+      "status": 0,
       "name": "dgdgdg",
       "id": 8
     },
     {
-      "sortId": 5.972999999999991,
+      "sortId": 5.571999999999992,
       "title": "gdgd",
       "content": "gddgdg",
       "deadline": "",
@@ -55,34 +55,34 @@
       "id": 9
     },
     {
-      "sortId": 5.872999999999991,
+      "sortId": 5.677999999999994,
       "title": "ggddg",
       "content": "gdgd",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "gd",
       "id": 10
     },
     {
-      "sortId": 5.979999999999993,
+      "sortId": 5.677999999999994,
       "title": "dg",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 0,
+      "status": 1,
       "name": "gd",
       "id": 11
     },
     {
-      "sortId": 5.973999999999991,
+      "sortId": 5.676999999999993,
       "title": "gd",
       "content": "gdgddgd",
       "deadline": "",
-      "status": 0,
+      "status": 2,
       "name": "gd",
       "id": 12
     },
     {
-      "sortId": 5.979999999999993,
+      "sortId": 5.576999999999994,
       "title": "gd",
       "content": "gdgdgd",
       "deadline": "",
@@ -91,29 +91,29 @@
       "id": 13
     },
     {
-      "sortId": 5.974999999999992,
+      "sortId": 5.671999999999992,
       "title": "ㅎㅇㅎㅇㅎ",
       "content": "모달 버그 꿀밤마렵네요 ^ ^",
       "deadline": "2023-01-10T23:57",
-      "status": 2,
+      "status": 1,
       "name": "이요한",
       "id": 14
     },
     {
-      "sortId": 5.974999999999992,
+      "sortId": 5.671999999999992,
       "title": "ㅎㅇㅎㅇ",
       "content": "ㅇㅎㅇㅇㅎ",
       "deadline": "2023-01-10T23:57",
-      "status": 0,
+      "status": 2,
       "name": "이요한",
       "id": 15
     },
     {
-      "sortId": 5.979999999999993,
+      "sortId": 5.677999999999994,
       "title": "ㅎㅇㅇㅎ",
       "content": "ㅇㅎㅇㅎ\n",
       "deadline": "2023-01-10T23:57",
-      "status": 0,
+      "status": 2,
       "name": "이요한",
       "id": 17
     }

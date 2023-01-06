@@ -56,7 +56,7 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       updateDndStatus({
         ...dudStatusData,
         isDragOver: true,
-        position: "none",
+        position: "top",
       })
     );
     setDndPosition("none");
@@ -102,6 +102,7 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       cardData?.sortId,
       cardData?.status
     );
+
     dispatch(
       updateDndStatus({
         ...dudStatusData,
@@ -114,6 +115,9 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
     );
     setDndPosition("none");
     // forceLoadingHandler();
+  };
+
+  const onDragEnd = (e) => {
     updateIssueHandler();
   };
 
@@ -136,6 +140,8 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       }
     });
 
+    console.log("업뎃데이터", dudStatusData);
+
     // new critica
     if (dudStatusData.prevPosition === "bottom") {
       dispatch(
@@ -145,6 +151,11 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
           status: dudStatusData.endStatus,
         })
       );
+      console.log("업뎃된데이터@@@@@@@", {
+        ...startIssueData,
+        sortId: thisStatusArr[dropCardIndexNumber].sortId + 0.1,
+        status: dudStatusData.endStatus,
+      });
     } else if (dudStatusData.prevPosition === "top") {
       dispatch(
         updateIssue({
@@ -153,6 +164,11 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
           status: dudStatusData.endStatus,
         })
       );
+      console.log("업뎃된데이터@@@@@@@", {
+        ...startIssueData,
+        sortId: thisStatusArr[dropCardIndexNumber].sortId - 0.1,
+        status: dudStatusData.endStatus,
+      });
     }
   };
 
@@ -179,9 +195,10 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
         onDragStart={onDragStart}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
-        onDrop={onDrop}
-        draggable
         onDragOver={onDragOverTop}
+        onDrop={onDrop}
+        onDragEnd={onDragEnd}
+        draggable
       >
         <CardTop>
           <span>
@@ -222,7 +239,7 @@ const DndHr = styled.hr`
   height: 0px;
   border: none;
   background-color: gray;
-  transition: 0.2s;
+  transition: 0.15s;
 `;
 
 const Container = styled.div`

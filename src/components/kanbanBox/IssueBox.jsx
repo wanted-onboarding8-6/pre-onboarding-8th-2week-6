@@ -19,6 +19,8 @@ export const IssueBox = ({
   let issueName =
     statusNum === 0 ? "Todo" : statusNum === 1 ? "Working" : "Done";
 
+  console.log(dudStatusData);
+
   // add issue modal
   const [showModal, setShowModal] = useState(false);
   const openAddIssueModal = () => {
@@ -64,27 +66,34 @@ export const IssueBox = ({
         endStatus: statusNum,
       })
     );
-    updateIssueFormEmpty();
   };
-  // console.log("ㅎㅇ", dndStatus);
 
   const updateIssueFormEmpty = () => {
     let startDCardData = [...issueData].filter(
       (item) => item.id === dudStatusData.startId
     )[0];
     console.log("업뎃데이터", startDCardData);
+    console.log("업뎃된데이터@@@@", {
+      ...startDCardData,
+      status: dudStatusData.endStatus,
+    });
     dispatch(
       updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
     );
     // forceLoadingHandler();
   };
 
+  const onDragEnd = (e) => {
+    updateIssueFormEmpty();
+  };
+
   return (
     <Container
-      onDragEnter={(e) => onDragEnter(e)}
-      onDragLeave={(e) => onDragLeave(e)}
-      onDragOver={(e) => onDragOver(e)}
-      onDrop={(e) => onDrop(e)}
+      onDragEnter={onDragEnter}
+      onDragLeave={onDragLeave}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      onDragEnd={onDragEnd}
     >
       <AddModal
         showModal={showModal}

@@ -128,44 +128,50 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
 };
 
 const ModalForm = styled.form`
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  z-index: 3;
+  padding-top: 40px;
 `;
 
 const InputWarp = styled.div`
-  margin-top: 20px;
+  width: 350px;
+  font-weight: 600;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: max-content;
+  justify-content: space-between;
+  align-items: center;
 
-  font-size: 0.9rem;
-  & label {
-    width: 50px;
-    margin-right: 10px;
-    font-weight: bold;
+  &:nth-child(2) label {
+    display: none;
   }
+
   & input {
-    width: 300px;
-    height: 25px;
-    border: 1px solid black;
+    width: 85%;
+    height: 35px;
+    border: 1px solid #c7c7c7;
     border-radius: 5px;
-    transition: 0.3s;
+    padding: 4px;
+    box-sizing: border-box;
+    font-size: 24px;
+
     &:focus {
-      outline: none;
-      border: 1px solid #a5a5a5;
+      outline: 1.5px solid #00339a;
     }
   }
+
   & textarea {
-    width: 300px;
+    width: 100%;
+    max-height: 200px;
     resize: none;
     overflow: hidden;
     border-radius: 5px;
-    border: 1px solid black;
-    transition: 0.3s;
+    border: none;
+    background-color: #f4f4f4;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-top: 25px;
+
     &:focus {
       outline: none;
       border: 1px solid #a5a5a5;
@@ -174,21 +180,29 @@ const InputWarp = styled.div`
 `;
 
 const BottomInputWarp = styled.div`
-  margin-top: 10px;
+  width: 340px;
   display: flex;
-  justify-content: flex-end;
-  width: 300px;
-  font-size: 0.9rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
   & label {
     width: 50px;
-    margin-right: 10px;
-    font-weight: bold;
+    font-weight: 600;
   }
+
   & input {
-    width: 180px;
-    border: 1px solid black;
+    width: 80%;
+    height: 35px;
+    border: 1px solid #c7c7c7;
     border-radius: 5px;
-    transition: 0.3s;
+    padding: 5px;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: #f4f4f4;
+    }
+
     &:focus {
       outline: none;
       border: 1px solid #a5a5a5;
@@ -197,10 +211,10 @@ const BottomInputWarp = styled.div`
 `;
 
 const StatusSelect = styled.div`
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-  width: 300px;
+  position: absolute;
+  top: 20px;
+  right: 25px;
+
   & select {
     border: 1px solid black;
     border-radius: 5px;
@@ -213,9 +227,31 @@ const StatusSelect = styled.div`
 `;
 
 const ButtonWarp = styled.div`
-  margin-top: 20px;
+  width: 350px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+
   & button {
-    margin: 0 10px 0 10px;
+    width: 170px;
+    background-color: #fff;
+    border: 1px solid #c7c7c7;
+    padding: 8px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:nth-child(1):hover {
+      background-color: #d4d4d4;
+      border-color: #d4d4d4;
+    }
+
+    &:nth-child(2):hover {
+      background-color: #ccecf6;
+      color: #00339a;
+      border-color: #ccecf6;
+    }
   }
 `;

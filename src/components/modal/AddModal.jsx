@@ -7,7 +7,12 @@ import useForm from '../../hooks/useForm';
 
 export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
   const dispatch = useDispatch();
-  const { form, autoComplite, setautoComplite, onChangeHandler } = useForm({ status: statusNum, name: '' });
+
+  const { form, autoComplite, setautoComplite, onChangeHandler, reset } =
+    useForm({
+      status: statusNum,
+      name: '',
+    });
 
   let formData = { sortId: lastSortId + 1, ...form };
 
@@ -15,6 +20,11 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
     if (window.confirm('저장할까요?')) {
       dispatch(addIssue(formData));
     }
+    closeModal();
+  };
+
+  const cancelHandler = () => {
+    reset({ status: statusNum, name: '' });
     closeModal();
   };
 
@@ -80,14 +90,7 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
           </select>
         </StatusSelect>
         <ButtonWarp>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              closeModal();
-            }}
-          >
-            취소
-          </button>
+          <button onClick={cancelHandler}>취소</button>
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -144,7 +147,7 @@ const InputWarp = styled.div`
 
   & textarea {
     width: 100%;
-    max-height: 200px;
+    height: 200px;
     resize: none;
     overflow: hidden;
     border-radius: 5px;

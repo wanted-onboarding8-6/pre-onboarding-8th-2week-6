@@ -189,16 +189,11 @@ export const Card = ({ cardData }) => {
             <img src={require("../../images/delete.png")} alt="삭제버튼" />
           </ImgWrap>
         </CardTop>
-        <CardBody
-        // onDragOver={onDragOverTop}
-        >
+        <CardBody onDragOver={onDragOverTop}>
           <p>{cardData?.content}</p>
         </CardBody>
-        <CardFooter
-        // onDragOver={onDragOverBottom}
-        >
+        <CardFooter onDragOver={onDragOverBottom}>
           <span>{cardData?.name}</span>
-          {/* <span>deadline : ~ {cardData?.deadline.replace("T", " / ")}</span> */}
           <span>deadline : ~ {cardData?.deadline?.replace("T", " / ")}</span>
         </CardFooter>
       </Container>

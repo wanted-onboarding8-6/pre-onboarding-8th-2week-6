@@ -14,8 +14,6 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
   let issueName =
     statusNum === 0 ? "Todo" : statusNum === 1 ? "Working" : "Done";
 
-  console.log(dudStatusData);
-
   // add issue modal
   const [showModal, setShowModal] = useState(false);
   const openAddIssueModal = () => {

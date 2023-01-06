@@ -91,12 +91,6 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
   // on Drop & fetch
   const onDrop = (e) => {
     dragFunction(e, "ondrop");
-    console.log(
-      "여기놓을게에",
-      cardData?.id,
-      cardData?.sortId,
-      cardData?.status
-    );
 
     dispatch(
       updateDndStatus({

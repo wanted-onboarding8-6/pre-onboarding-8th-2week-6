@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { issueAPI } from "../api/api";
 
 export const getIssues = createAsyncThunk(
@@ -49,13 +49,6 @@ export const deleteIssue = createAsyncThunk(
   }
 );
 
-export const forceLoading = createAsyncThunk(
-  "FORCE_LOADING_AFTER_REQUEST",
-  async (payload, thunkAPI) => {
-    return thunkAPI.fulfillWithValue();
-  }
-);
-
 const initialState = {
   issue: [],
   dndStatus: {
@@ -94,7 +87,7 @@ export const issueSlice = createSlice({
       if (state.isLoading === true) return;
       state.issue.push(action.payload);
     });
-    builder.addCase(getIssues.rejected, (state, action) => {
+    builder.addCase(addIssue.rejected, (state, action) => {
       state.error = "알 수 없는 오류, 새로고침 해주시기 바랍니다.";
     });
     builder.addCase(updateIssue.fulfilled, (state, action) => {

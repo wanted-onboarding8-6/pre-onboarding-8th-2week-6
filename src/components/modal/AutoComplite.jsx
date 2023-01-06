@@ -1,12 +1,15 @@
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { nameAPI } from '../../api/api';
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { nameAPI } from "../../api/api";
 
 export const AutoCompliteInput = ({
   onChangeHandler,
   name,
   autoComplite,
   setautoComplite,
+  type,
+  setForm,
+  setUpdateForm,
 }) => {
   //name data fetch
   const [nameData, setNameData] = useState([]);
@@ -28,7 +31,7 @@ export const AutoCompliteInput = ({
   );
 
   return (
-    <AutoComplite style={!autoComplite ? { display: 'none' } : null}>
+    <AutoComplite style={!autoComplite ? { display: "none" } : null}>
       {newNameData.length === 0 && (
         <AutoCompliteItem>일치하는 담당자가 없습니다.</AutoCompliteItem>
       )}
@@ -37,6 +40,12 @@ export const AutoCompliteInput = ({
           <AutoCompliteItem
             key={index}
             onClick={(e) => {
+              type === "add"
+                ? setForm((form) => ({ ...form, name: e.target.innerText }))
+                : setUpdateForm((form) => ({
+                    ...form,
+                    name: e.target.innerText,
+                  }));
               onChangeHandler(e);
               setautoComplite(false);
             }}

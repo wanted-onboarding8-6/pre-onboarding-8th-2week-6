@@ -27,11 +27,12 @@ export const AddModal = ({
   // onChange form data handler
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-
     if (name === "status")
       setForm((form) => ({ ...form, [name]: Number(value) }));
     else setForm((form) => ({ ...form, [name]: value }));
   };
+
+  console.log(form);
 
   let formData = { sortId: lastSortId + 1, ...form };
 
@@ -128,6 +129,8 @@ export const AddModal = ({
           name={form.name}
           autoComplite={autoComplite}
           setautoComplite={setautoComplite}
+          type="add"
+          setForm={setForm}
         />
       </ModalForm>
     </ModalPage>

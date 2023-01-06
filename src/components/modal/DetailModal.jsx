@@ -19,8 +19,13 @@ export const DetailModal = ({
   // auto complite status
   const [autoComplite, setautoComplite] = useState(false);
 
+  console.log(updateForm);
   useEffect(() => {
-    updateForm.name.length > 0 ? setautoComplite(true) : setautoComplite(false);
+    if (updateForm.name !== cardData.name) {
+      updateForm.name.length > 0
+        ? setautoComplite(true)
+        : setautoComplite(false);
+    }
   }, [updateForm.name]);
 
   // onChange form data handler
@@ -132,6 +137,8 @@ export const DetailModal = ({
           name={updateForm.name}
           autoComplite={autoComplite}
           setautoComplite={setautoComplite}
+          type="update"
+          setUpdateForm={setUpdateForm}
         />
       </ModalForm>
     </ModalPage>

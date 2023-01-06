@@ -68,3 +68,36 @@ yarn start
 - 중복 액션 방지를 위한 딜레이 적용
 - 새로고침 여부와 무관한 데이터 관리
 - redux thunk - reject를 이용한 에러상황을 고려한 store 세팅
+
+<br>
+
+## 디렉토리 구조
+
+```bash
+src
+   ├── index.js # entrypoint
+   ├── App.jsx
+   ├── components
+   │   └── kanbanBox
+   │   │   ├── Card.jsx
+   │   │   └── IssueBox.jsx
+   │   └── loadingSpinner
+   │   │   └── LoadingSpinner.jsx
+   │   └── modal
+   │       ├── AddModal.jsx
+   │       ├── AutoComplite.jsx
+   │       └── DetailModal.jsx
+   ├── redux
+   │   ├── dndSlice.jsx
+   │   ├── issueSlice.jsx
+   │   └── store.jsx
+   ├── page
+   │   └── Home.jsx
+   ├── hooks
+   │   └── uesForm.jsx
+   ├── util
+   │   └── Modal.jsx
+   ├── images
+   └── api
+       └── api.js
+```

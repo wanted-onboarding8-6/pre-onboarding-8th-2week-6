@@ -69,6 +69,7 @@ yarn start
 - 새로고침 여부와 무관한 데이터 관리
 - redux thunk - reject를 이용한 에러상황을 고려한 store 세팅
 
+<br>
 ## 디렉토리 구조
 
 ```bash
@@ -77,10 +78,10 @@ src
    ├── App.jsx
    ├── components
    │   └── kanbanBox
-   │       ├── Card.jsx
-   │       └── IssueBox.jsx
+   │   │   ├── Card.jsx
+   │   │   └── IssueBox.jsx
    │   └── loadingSpinner
-   │       └── LoadingSpinner.jsx
+   │   │   └── LoadingSpinner.jsx
    │   └── modal
    │       ├── AddModal.jsx
    │       ├── AutoComplite.jsx

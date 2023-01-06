@@ -64,24 +64,27 @@ export const IssueBox = ({
         ...dudStatusData,
         isDragOver: false,
         endStatus: statusNum,
+        endSortId: 0,
       })
     );
   };
 
   const updateIssueFormEmpty = () => {
-    let startDCardData = [...issueData].filter(
-      (item) => item.id === dudStatusData.startId
-    )[0];
-    console.log("업뎃데이터", startDCardData);
-    console.log("업뎃된데이터@@@@", {
-      ...startDCardData,
-      status: dudStatusData.endStatus,
-      sortId: lastSortId + 1,
-    });
-    dispatch(
-      updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
-    );
-    // forceLoadingHandler();
+    if (dudStatusData.endId === 0) {
+      let startDCardData = [...issueData].filter(
+        (item) => item.id === dudStatusData.startId
+      )[0];
+      console.log("업뎃데이터", startDCardData);
+      console.log("업뎃된데이터@@@@", {
+        ...startDCardData,
+        status: dudStatusData.endStatus,
+        sortId: lastSortId + 1,
+      });
+      dispatch(
+        updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
+      );
+      // forceLoadingHandler();
+    }
   };
 
   const onDragEnd = (e) => {

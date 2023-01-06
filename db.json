@@ -1,16 +1,16 @@
 {
   "issue": [
     {
-      "sortId": 2,
+      "sortId": 2.1999999999999993,
       "title": "gdgd",
       "content": "gdd",
       "deadline": "",
-      "status": 1,
+      "status": 0,
       "name": "dgdgd",
       "id": 2
     },
     {
-      "sortId": 5,
+      "sortId": 2.2999999999999994,
       "title": "gddg",
       "content": "dgdgg",
       "deadline": "",
@@ -19,16 +19,16 @@
       "id": 4
     },
     {
-      "sortId": 5,
+      "sortId": -0.4,
       "title": "dgg",
       "content": "dgd",
       "deadline": "",
-      "status": 0,
+      "status": 2,
       "name": "dgdgd",
       "id": 5
     },
     {
-      "sortId": 6,
+      "sortId": 2.1999999999999993,
       "title": "gddggd",
       "content": "gddgdg",
       "deadline": "",
@@ -37,7 +37,7 @@
       "id": 6
     },
     {
-      "sortId": 8,
+      "sortId": -0.4,
       "title": "ggd",
       "content": "dgdgg",
       "deadline": "",
@@ -46,7 +46,7 @@
       "id": 8
     },
     {
-      "sortId": 9,
+      "sortId": -0.30000000000000004,
       "title": "gdgd",
       "content": "gddgdg",
       "deadline": "",
@@ -55,7 +55,7 @@
       "id": 9
     },
     {
-      "sortId": 10,
+      "sortId": -0.30000000000000004,
       "title": "ggddg",
       "content": "gdgd",
       "deadline": "",
@@ -64,43 +64,43 @@
       "id": 10
     },
     {
-      "sortId": 11,
+      "sortId": 2.1999999999999993,
       "title": "dg",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 2,
+      "status": 0,
       "name": "gd",
       "id": 11
     },
     {
-      "sortId": 12,
+      "sortId": -0.7,
       "title": "gd",
       "content": "gdgddgd",
       "deadline": "",
-      "status": 2,
+      "status": 1,
       "name": "gd",
       "id": 12
     },
     {
-      "sortId": 13,
+      "sortId": 2.3999999999999995,
       "title": "gd",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 2,
+      "status": 0,
       "name": "gd",
       "id": 13
     },
     {
-      "sortId": 14,
+      "sortId": null,
       "title": "ㅎㅇㅎㅇㅎ",
       "content": "모달 버그 꿀밤마렵네요 ^ ^",
       "deadline": "2023-01-10T23:57",
-      "status": 1,
+      "status": 2,
       "name": "이요한",
       "id": 14
     },
     {
-      "sortId": 15,
+      "sortId": -0.2,
       "title": "ㅎㅇㅎㅇ",
       "content": "ㅇㅎㅇㅇㅎ",
       "deadline": "2023-01-10T23:57",
@@ -109,7 +109,7 @@
       "id": 15
     },
     {
-      "sortId": 16,
+      "sortId": 2.2999999999999994,
       "title": "ㅎㅇㅇㅎ",
       "content": "ㅇㅎㅇㅎ\n",
       "deadline": "2023-01-10T23:57",

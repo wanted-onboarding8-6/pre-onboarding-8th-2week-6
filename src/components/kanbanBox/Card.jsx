@@ -46,6 +46,7 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
         ...dudStatusData,
         startId: cardData?.id,
         startStatus: cardData?.status,
+        startSortId: cardData?.sortId,
       })
     );
   };
@@ -80,7 +81,11 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
   });
   const onDragOverTop = (e) => {
     dragFunction(e, "ondragover");
-    setDragOverData({ isDragOver: true, position: "top", prevPosition: "top" });
+    setDragOverData({
+      isDragOver: true,
+      position: "top",
+      prevPosition: "top",
+    });
     setDndPosition("top");
   };
   const onDragOverBottom = (e) => {
@@ -111,6 +116,7 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
         prevPosition: dragOverData.position,
         endId: cardData?.id,
         endStatus: cardData?.status,
+        endSortId: cardData?.sortId,
       })
     );
     setDndPosition("none");
@@ -149,26 +155,26 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       dispatch(
         updateIssue({
           ...startIssueData,
-          sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 1,
+          sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 0.1,
           status: dudStatusData.endStatus,
         })
       );
       console.log("업뎃된데이터@@@@@@@", {
         ...startIssueData,
-        sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 1,
+        sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 0.1,
         status: dudStatusData.endStatus,
       });
     } else if (dudStatusData.prevPosition === "top") {
       dispatch(
         updateIssue({
           ...startIssueData,
-          sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 1,
+          sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 0.1,
           status: dudStatusData.endStatus,
         })
       );
       console.log("업뎃된데이터@@@@@@@", {
         ...startIssueData,
-        sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 1,
+        sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 0.1,
         status: dudStatusData.endStatus,
       });
     }

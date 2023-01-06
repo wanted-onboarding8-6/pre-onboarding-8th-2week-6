@@ -5,12 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateIssue } from "../../redux/issueSlice";
 import useForm from "../../hooks/useForm";
 
-export const DetailModal = ({
-  showModal,
-  closeModal,
-  cardData,
-  forceLoadingHandler,
-}) => {
+export const DetailModal = ({ showModal, closeModal, cardData }) => {
   const dispatch = useDispatch();
 
   const {
@@ -26,7 +21,6 @@ export const DetailModal = ({
   const updateIssueHandler = () => {
     if (window.confirm("저장할까요?")) {
       dispatch(updateIssue(formData));
-      forceLoadingHandler();
       closeModal();
     }
   };

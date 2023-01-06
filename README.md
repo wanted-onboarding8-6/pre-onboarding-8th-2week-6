@@ -70,6 +70,7 @@ yarn start
 - redux thunk - reject를 이용한 에러상황을 고려한 store 세팅
 
 <br>
+
 ## 디렉토리 구조
 
 ```bash

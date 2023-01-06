@@ -5,13 +5,7 @@ import { useDispatch } from "react-redux";
 import { addIssue } from "../../redux/issueSlice";
 import useForm from "../../hooks/useForm";
 
-export const AddModal = ({
-  showModal,
-  closeModal,
-  statusNum,
-  lastSortId,
-  forceLoadingHandler,
-}) => {
+export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
   const dispatch = useDispatch();
 
   const { form, autoComplite, setautoComplite, onChangeHandler, reset } =
@@ -25,7 +19,6 @@ export const AddModal = ({
   const addIssueHandler = () => {
     if (window.confirm("저장할까요?")) {
       dispatch(addIssue(formData));
-      forceLoadingHandler();
       closeModal();
     }
   };

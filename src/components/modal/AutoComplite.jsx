@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { nameAPI } from '../../api/api';
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { nameAPI } from "../../api/api";
 
 export const AutoCompliteInput = ({
   onChangeHandler,
@@ -35,7 +35,7 @@ export const AutoCompliteInput = ({
 
   return (
     <AutoComplite
-      style={!autoComplite ? { display: 'none' } : null}
+      style={!autoComplite ? { display: "none" } : null}
       onFocus={() => setIsTouched(true)}
     >
       {newNameData.length === 0 && (
@@ -43,7 +43,7 @@ export const AutoCompliteInput = ({
       )}
       {newNameData &&
         newNameData.map((item, index) => (
-          <AutoCompliteItem key={index} onClick={nameSelect} id='name'>
+          <AutoCompliteItem key={index} onClick={nameSelect} id="name">
             {item?.name}
           </AutoCompliteItem>
         ))}

@@ -14,7 +14,7 @@ export const dragFunction = (e, type) => {
 };
 
 // component start ##############
-export const Card = ({ cardData }) => {
+export const Card = ({ cardData, forceLoadingHandler }) => {
   const dispatch = useDispatch();
   const { issue } = useSelector((state) => state.issueSlice);
   const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
@@ -23,6 +23,7 @@ export const Card = ({ cardData }) => {
     e.stopPropagation();
     if (window.confirm("삭제할까요?")) {
       dispatch(deleteIssue(issueId));
+      forceLoadingHandler();
     }
   };
 
@@ -36,7 +37,7 @@ export const Card = ({ cardData }) => {
   };
 
   //####### dnd event ########
-  console.log("리덕스 ㅎㅇ", dudStatusData);
+  // console.log("리덕스 ㅎㅇ", dudStatusData);
   const [dndPosition, setDndPosition] = useState("none");
 
   const onDragStart = (e) => {
@@ -45,6 +46,7 @@ export const Card = ({ cardData }) => {
         ...dudStatusData,
         startId: cardData?.id,
         startStatus: cardData?.status,
+        startSortId: cardData?.sortId,
       })
     );
   };
@@ -54,8 +56,8 @@ export const Card = ({ cardData }) => {
     dispatch(
       updateDndStatus({
         ...dudStatusData,
-        isDragOver: false,
-        position: "none",
+        isDragOver: true,
+        position: "top",
       })
     );
     setDndPosition("none");
@@ -79,7 +81,11 @@ export const Card = ({ cardData }) => {
   });
   const onDragOverTop = (e) => {
     dragFunction(e, "ondragover");
-    setDragOverData({ isDragOver: true, position: "top", prevPosition: "top" });
+    setDragOverData({
+      isDragOver: true,
+      position: "top",
+      prevPosition: "top",
+    });
     setDndPosition("top");
   };
   const onDragOverBottom = (e) => {
@@ -101,6 +107,7 @@ export const Card = ({ cardData }) => {
       cardData?.sortId,
       cardData?.status
     );
+
     dispatch(
       updateDndStatus({
         ...dudStatusData,
@@ -109,24 +116,30 @@ export const Card = ({ cardData }) => {
         prevPosition: dragOverData.position,
         endId: cardData?.id,
         endStatus: cardData?.status,
+        endSortId: cardData?.sortId,
       })
     );
     setDndPosition("none");
+    // forceLoadingHandler();
+  };
+
+  const onDragEnd = (e) => {
+    dragFunction(e, "onDragEnd");
     updateIssueHandler();
-    setTimeout(() => {}, 500);
   };
 
   const updateIssueHandler = () => {
     // drag data
-    const startIssueData = [...issue].filter(
+    const startIssueData = [...issue]?.filter(
       (item) => item.id === dudStatusData.startId
     )[0];
     console.log("뽑아융", startIssueData);
 
     // drop data
-    const thisStatusArr = [...issue].filter(
+    const thisStatusArr = [...issue]?.filter(
       (item) => item.status === dudStatusData.endStatus
     );
+    console.log("thisStatusArr@@@@@@@@@@@@@@@@@@@@", thisStatusArr);
 
     let dropCardIndexNumber = 0;
     const dropedCardIndex = thisStatusArr.map((item, index) => {
@@ -135,23 +148,35 @@ export const Card = ({ cardData }) => {
       }
     });
 
+    console.log("업뎃데이터", dudStatusData);
+
     // new critica
     if (dudStatusData.prevPosition === "bottom") {
       dispatch(
         updateIssue({
           ...startIssueData,
-          sortId: thisStatusArr[dropCardIndexNumber].sortId + 0.001,
+          sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 0.1,
           status: dudStatusData.endStatus,
         })
       );
+      console.log("업뎃된데이터@@@@@@@", {
+        ...startIssueData,
+        sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 0.1,
+        status: dudStatusData.endStatus,
+      });
     } else if (dudStatusData.prevPosition === "top") {
       dispatch(
         updateIssue({
           ...startIssueData,
-          sortId: thisStatusArr[dropCardIndexNumber].sortId - 0.001,
+          sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 0.1,
           status: dudStatusData.endStatus,
         })
       );
+      console.log("업뎃된데이터@@@@@@@", {
+        ...startIssueData,
+        sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 0.1,
+        status: dudStatusData.endStatus,
+      });
     }
   };
 
@@ -161,6 +186,7 @@ export const Card = ({ cardData }) => {
         showModal={showModal}
         closeModal={closeAddIssueModal}
         cardData={cardData}
+        forceLoadingHandler={forceLoadingHandler}
       />
       <DndHr
         style={
@@ -177,9 +203,10 @@ export const Card = ({ cardData }) => {
         onDragStart={onDragStart}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
-        onDrop={onDrop}
-        draggable
         onDragOver={onDragOverTop}
+        onDrop={onDrop}
+        onDragEnd={onDragEnd}
+        draggable
       >
         <CardTop>
           <span>
@@ -189,10 +216,16 @@ export const Card = ({ cardData }) => {
             <img src={require("../../images/delete.png")} alt="삭제버튼" />
           </ImgWrap>
         </CardTop>
-        <CardBody onDragOver={onDragOverTop}>
+        <CardBody
+        // onDragOver={(e) => {
+        //   onDragOverTop(e);
+        // }}
+        >
           <p>{cardData?.content}</p>
         </CardBody>
-        <CardFooter onDragOver={onDragOverBottom}>
+        <CardFooter
+        // onDragOver={onDragOverBottom}
+        >
           <span>{cardData?.name}</span>
           <span>deadline : ~ {cardData?.deadline?.replace("T", " / ")}</span>
         </CardFooter>
@@ -216,7 +249,7 @@ const DndHr = styled.hr`
   height: 0px;
   border: none;
   background-color: gray;
-  transition: 0.2s;
+  transition: 0.15s;
 `;
 
 const Container = styled.div`

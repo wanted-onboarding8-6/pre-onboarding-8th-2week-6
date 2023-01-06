@@ -1,11 +1,16 @@
-import styled from 'styled-components';
-import { ModalPage } from '../../util/modal';
-import { AutoCompliteInput } from './AutoComplite';
-import { useDispatch } from 'react-redux';
-import { updateIssue } from '../../redux/issueSlice';
-import useForm from '../../hooks/useForm';
+import styled from "styled-components";
+import { ModalPage } from "../../util/modal";
+import { AutoCompliteInput } from "./AutoComplite";
+import { useDispatch } from "react-redux";
+import { updateIssue } from "../../redux/issueSlice";
+import useForm from "../../hooks/useForm";
 
-export const DetailModal = ({ showModal, closeModal, cardData }) => {
+export const DetailModal = ({
+  showModal,
+  closeModal,
+  cardData,
+  forceLoadingHandler,
+}) => {
   const dispatch = useDispatch();
 
   const {
@@ -19,8 +24,9 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
   let formData = { sortId: cardData.sortId, ...updateForm };
 
   const updateIssueHandler = () => {
-    if (window.confirm('저장할까요?')) {
+    if (window.confirm("저장할까요?")) {
       dispatch(updateIssue(formData));
+      forceLoadingHandler();
       closeModal();
     }
   };
@@ -43,62 +49,62 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
           <span></span>
         </div>
         <InputWarp>
-          <label htmlFor='title'>제목</label>
+          <label htmlFor="title">제목</label>
           <input
             onChange={onChangeHandler}
-            type='text'
-            name='title'
-            id='title'
+            type="text"
+            name="title"
+            id="title"
             maxLength={30}
             value={updateForm.title}
           />
         </InputWarp>
         <InputWarp>
-          <label htmlFor='content'>내용</label>
+          <label htmlFor="content">내용</label>
           <textarea
             onChange={onChangeHandler}
-            id='content'
-            name='content'
-            cols='30'
-            rows='10'
+            id="content"
+            name="content"
+            cols="30"
+            rows="10"
             value={updateForm.content}
           />
         </InputWarp>
         <BottomInputWarp>
-          <label htmlFor='name'>담당자</label>
+          <label htmlFor="name">담당자</label>
           <input
             onChange={onChangeHandler}
-            type='담당자'
-            name='name'
-            id='name'
-            autoComplete='off'
+            type="담당자"
+            name="name"
+            id="name"
+            autoComplete="off"
             value={updateForm.name}
           />
         </BottomInputWarp>
         <BottomInputWarp>
-          <label htmlFor='deadline'>마감일</label>
+          <label htmlFor="deadline">마감일</label>
           <input
             onChange={onChangeHandler}
-            type='datetime-local'
-            id='deadline'
-            name='deadlilne'
+            type="datetime-local"
+            id="deadline"
+            name="deadlilne"
             value={updateForm.deadline}
           />
         </BottomInputWarp>
         <StatusSelect>
           <select
             onChange={onChangeHandler}
-            name='status'
+            name="status"
             defaultValue={updateForm.status}
           >
-            <option value='0'>Todo</option>
-            <option value='1'>Working</option>
-            <option value='2'>Done</option>
+            <option value="0">Todo</option>
+            <option value="1">Working</option>
+            <option value="2">Done</option>
           </select>
         </StatusSelect>
         <ButtonWarp>
           <button onClick={cancelHandler}>닫기</button>
-          <button type='submit' onClick={updateIssueHandler}>
+          <button type="submit" onClick={updateIssueHandler}>
             변경사항 저장
           </button>
         </ButtonWarp>

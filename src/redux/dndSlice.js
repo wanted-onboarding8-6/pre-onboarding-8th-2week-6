@@ -22,6 +22,8 @@ const initialState = {
       endId: 0,
       startStatus: 0,
       endStatus: 0,
+      startSortId: 0,
+      endSortId: 0,
     },
   ],
   isLoading: false,

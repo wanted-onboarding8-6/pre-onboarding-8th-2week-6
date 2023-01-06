@@ -7,12 +7,19 @@ import { dragFunction } from "./Card";
 import { AddModal } from "../modal/AddModal";
 import { updateDndStatus } from "../../redux/dndSlice";
 
-export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
+export const IssueBox = ({
+  statusNum,
+  issueData,
+  lastSortId,
+  forceLoadingHandler,
+}) => {
   const dispatch = useDispatch();
   const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
 
   let issueName =
     statusNum === 0 ? "Todo" : statusNum === 1 ? "Working" : "Done";
+
+  console.log(dudStatusData);
 
   // add issue modal
   const [showModal, setShowModal] = useState(false);
@@ -57,20 +64,31 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
         ...dudStatusData,
         isDragOver: false,
         endStatus: statusNum,
+        endSortId: 0,
       })
     );
-    updateIssueFormEmpty();
   };
-  // console.log("ㅎㅇ", dndStatus);
 
   const updateIssueFormEmpty = () => {
-    let startDCardData = [...issueData].filter(
-      (item) => item.id === dudStatusData.startId
-    )[0];
-    console.log("업뎃데이터", startDCardData);
-    dispatch(
-      updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
-    );
+    if (dudStatusData.endId === 0) {
+      let startDCardData = [...issueData].filter(
+        (item) => item.id === dudStatusData.startId
+      )[0];
+      console.log("업뎃데이터", startDCardData);
+      console.log("업뎃된데이터@@@@", {
+        ...startDCardData,
+        status: dudStatusData.endStatus,
+        sortId: lastSortId + 1,
+      });
+      dispatch(
+        updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
+      );
+      // forceLoadingHandler();
+    }
+  };
+
+  const onDragEnd = (e) => {
+    updateIssueFormEmpty();
   };
 
   return (
@@ -79,12 +97,14 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}
       onDrop={onDrop}
+      onDragEnd={onDragEnd}
     >
       <AddModal
         showModal={showModal}
         closeModal={closeAddIssueModal}
         statusNum={statusNum}
         lastSortId={lastSortId}
+        forceLoadingHandler={forceLoadingHandler}
       />
       <BoradTop>
         <div>
@@ -98,7 +118,14 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
         {issueData
           ?.map((item) => {
             if (item.status === statusNum) {
-              return <Card key={item.id} cardData={item} />;
+              return (
+                <Card
+                  key={item.id}
+                  cardData={item}
+                  forceLoadingHandler={forceLoadingHandler}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              );
             }
           })
           .sort((a, b) => a.sortId - b.sortId)}

@@ -10,7 +10,6 @@ import { DetailModal } from "../modal/DetailModal";
 export const dragFunction = (e, type) => {
   e.preventDefault();
   e.stopPropagation();
-  console.log(type);
 };
 
 // component start ##############
@@ -88,15 +87,6 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
     });
     setDndPosition("top");
   };
-  const onDragOverBottom = (e) => {
-    dragFunction(e, "ondragover");
-    setDragOverData({
-      isDragOver: true,
-      position: "button",
-      prevPosition: "button",
-    });
-    setDndPosition("botton");
-  };
 
   // on Drop & fetch
   const onDrop = (e) => {
@@ -120,7 +110,6 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       })
     );
     setDndPosition("none");
-    // forceLoadingHandler();
   };
 
   const onDragEnd = (e) => {
@@ -133,13 +122,11 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
     const startIssueData = [...issue]?.filter(
       (item) => item.id === dudStatusData.startId
     )[0];
-    console.log("뽑아융", startIssueData);
 
     // drop data
     const thisStatusArr = [...issue]?.filter(
       (item) => item.status === dudStatusData.endStatus
     );
-    console.log("thisStatusArr@@@@@@@@@@@@@@@@@@@@", thisStatusArr);
 
     let dropCardIndexNumber = 0;
     const dropedCardIndex = thisStatusArr.map((item, index) => {
@@ -147,8 +134,6 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
         dropCardIndexNumber = index;
       }
     });
-
-    console.log("업뎃데이터", dudStatusData);
 
     // new critica
     if (dudStatusData.prevPosition === "bottom") {
@@ -159,11 +144,6 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
           status: dudStatusData.endStatus,
         })
       );
-      console.log("업뎃된데이터@@@@@@@", {
-        ...startIssueData,
-        sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 0.1,
-        status: dudStatusData.endStatus,
-      });
     } else if (dudStatusData.prevPosition === "top") {
       dispatch(
         updateIssue({
@@ -172,11 +152,6 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
           status: dudStatusData.endStatus,
         })
       );
-      console.log("업뎃된데이터@@@@@@@", {
-        ...startIssueData,
-        sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 0.1,
-        status: dudStatusData.endStatus,
-      });
     }
   };
 
@@ -216,16 +191,10 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
             <img src={require("../../images/delete.png")} alt="삭제버튼" />
           </ImgWrap>
         </CardTop>
-        <CardBody
-        // onDragOver={(e) => {
-        //   onDragOverTop(e);
-        // }}
-        >
+        <CardBody>
           <p>{cardData?.content}</p>
         </CardBody>
-        <CardFooter
-        // onDragOver={onDragOverBottom}
-        >
+        <CardFooter>
           <span>{cardData?.name}</span>
           <span>deadline : ~ {cardData?.deadline?.replace("T", " / ")}</span>
         </CardFooter>

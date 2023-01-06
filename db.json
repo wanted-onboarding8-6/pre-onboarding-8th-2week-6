@@ -1,8 +1,8 @@
 {
   "issue": [
     {
-      "sortId": 2.999,
-      "status": 1,
+      "sortId": null,
+      "status": 0,
       "name": "임요환",
       "title": "테스트1",
       "content": "테스",
@@ -10,8 +10,8 @@
       "id": 1
     },
     {
-      "sortId": 0.999,
-      "status": 0,
+      "sortId": null,
+      "status": 2,
       "name": "이미역",
       "title": "테스트2",
       "content": "테스트2",
@@ -19,7 +19,7 @@
       "id": 2
     },
     {
-      "sortId": 3,
+      "sortId": null,
       "status": 1,
       "name": "imagedragon",
       "title": "테스트3",

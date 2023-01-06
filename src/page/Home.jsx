@@ -12,14 +12,10 @@ export default function Home() {
   const [newIssueData, setnewIssueData] = useState();
 
   // get last sort id
-  const [getLastSortId, setGetLastSortId] = useState();
   useEffect(() => {
     setisLoading(true);
     dispatch(issueAction.loadingStart());
     setTimeout(() => {
-      // let newIssueArr = [...issue];
-      // newIssueArr.sort((a, b) => b.sortId - a.sortId);
-      // setGetLastSortId(newIssueArr[0].sortId);
       setnewIssueData([...issue].sort((a, b) => a.sortId - b.sortId));
       setisLoading(false);
       dispatch(issueAction.loadingEnd());

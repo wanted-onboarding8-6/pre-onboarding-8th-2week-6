@@ -7,27 +7,23 @@ import { LoadingSpinner } from "../components/loadingSpinner/LoadingSpinner";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { issue } = useSelector((state) => state.issueSlice);
-  const [isLoading, setisLoading] = useState(false);
+  const { issue, isLoading } = useSelector((state) => state.issueSlice);
+  // const [isLoading, setisLoading] = useState(false);
   const [newIssueData, setnewIssueData] = useState();
 
   // get last sort id
   useEffect(() => {
-    setisLoading(true);
-    dispatch(issueAction.loadingStart());
     setTimeout(() => {
       setnewIssueData([...issue].sort((a, b) => a.sortId - b.sortId));
-      setisLoading(false);
-      dispatch(issueAction.loadingEnd());
     }, 500);
   }, [issue]);
 
   // data fetch
   useEffect(() => {
-    setisLoading(true);
+    dispatch(issueAction.loadingStart());
     dispatch(getIssues());
     setTimeout(() => {
-      setisLoading(false);
+      dispatch(issueAction.loadingEnd());
     }, 1500);
   }, [dispatch]);
 

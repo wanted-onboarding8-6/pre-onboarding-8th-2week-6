@@ -198,7 +198,8 @@ export const Card = ({ cardData }) => {
         // onDragOver={onDragOverBottom}
         >
           <span>{cardData?.name}</span>
-          <span>deadline : ~ {cardData?.deadline.replace("T", " / ")}</span>
+          {/* <span>deadline : ~ {cardData?.deadline.replace("T", " / ")}</span> */}
+          <span>deadline : ~ {cardData?.deadline?.replace("T", " / ")}</span>
         </CardFooter>
       </Container>
       <DndHr

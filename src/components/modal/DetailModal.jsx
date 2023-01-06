@@ -8,30 +8,13 @@ import useForm from '../../hooks/useForm';
 export const DetailModal = ({ showModal, closeModal, cardData }) => {
   const dispatch = useDispatch();
 
-
-  // form data
-  //const [updateForm, setUpdateForm] = useState({ ...cardData });
-  //
-  //// auto complite status
-  //const [autoComplite, setautoComplite] = useState(false);
-  //const [isNameInputTouched, setIsNameInputTouched] = useState(false);
-  //
-  //useEffect(() => {
-  //  updateForm.name.length > 0 && isNameInputTouched
-  //    ? setautoComplite(true)
-  //    : setautoComplite(false);
-  //}, [updateForm.name, isNameInputTouched]);
-  //
-  //// onChange form data handler
-  //const onChangeHandler = (e) => {
-  //  const { name, value } = e.target;
-  // 
-  // if (name === 'status')
-  //    setUpdateForm((form) => ({ ...form, [name]: Number(value) }));
-  //  else setUpdateForm((form) => ({ ...form, [name]: value }));
-  //};
-
-  const { form: updateForm, autoComplite, setautoComplite, onChangeHandler } = useForm({ ...cardData });
+  const {
+    form: updateForm,
+    autoComplite,
+    setautoComplite,
+    onChangeHandler,
+    reset,
+  } = useForm({ ...cardData });
 
   let formData = { sortId: cardData.sortId, ...updateForm };
 
@@ -47,9 +30,14 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
     setautoComplite(false);
   };
 
+  const cancelHandler = () => {
+    reset(cardData);
+    closeModal();
+  };
+
   return (
     <ModalPage showModal={showModal} closeModal={closeModal}>
-      <ModalForm onClick={(e) => formOnClickHandler(e)}>
+      <ModalForm onClick={formOnClickHandler}>
         <div>
           <span>{cardData.id} #</span>
           <span></span>
@@ -79,7 +67,6 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
         <BottomInputWarp>
           <label htmlFor='name'>담당자</label>
           <input
-            onClick={() => setIsNameInputTouched(true)}
             onChange={onChangeHandler}
             type='담당자'
             name='name'
@@ -110,21 +97,8 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
           </select>
         </StatusSelect>
         <ButtonWarp>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              closeModal();
-            }}
-          >
-            닫기
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              updateIssueHandler();
-            }}
-            type='submit'
-          >
+          <button onClick={cancelHandler}>닫기</button>
+          <button type='submit' onClick={updateIssueHandler}>
             변경사항 저장
           </button>
         </ButtonWarp>

@@ -7,7 +7,12 @@ import { dragFunction } from "./Card";
 import { AddModal } from "../modal/AddModal";
 import { updateDndStatus } from "../../redux/dndSlice";
 
-export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
+export const IssueBox = ({
+  statusNum,
+  issueData,
+  lastSortId,
+  forceLoadingHandler,
+}) => {
   const dispatch = useDispatch();
   const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
 
@@ -71,20 +76,22 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
     dispatch(
       updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
     );
+    // forceLoadingHandler();
   };
 
   return (
     <Container
-      onDragEnter={onDragEnter}
-      onDragLeave={onDragLeave}
-      onDragOver={onDragOver}
-      onDrop={onDrop}
+      onDragEnter={(e) => onDragEnter(e)}
+      onDragLeave={(e) => onDragLeave(e)}
+      onDragOver={(e) => onDragOver(e)}
+      onDrop={(e) => onDrop(e)}
     >
       <AddModal
         showModal={showModal}
         closeModal={closeAddIssueModal}
         statusNum={statusNum}
         lastSortId={lastSortId}
+        forceLoadingHandler={forceLoadingHandler}
       />
       <BoradTop>
         <div>
@@ -98,7 +105,13 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
         {issueData
           ?.map((item) => {
             if (item.status === statusNum) {
-              return <Card key={item.id} cardData={item} />;
+              return (
+                <Card
+                  key={item.id}
+                  cardData={item}
+                  forceLoadingHandler={forceLoadingHandler}
+                />
+              );
             }
           })
           .sort((a, b) => a.sortId - b.sortId)}

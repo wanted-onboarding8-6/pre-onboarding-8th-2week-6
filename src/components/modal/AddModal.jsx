@@ -1,15 +1,21 @@
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { ModalPage } from '../../util/modal';
-import { AutoCompliteInput } from './AutoComplite';
-import { useDispatch } from 'react-redux';
-import { addIssue } from '../../redux/issueSlice';
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { ModalPage } from "../../util/modal";
+import { AutoCompliteInput } from "./AutoComplite";
+import { useDispatch } from "react-redux";
+import { addIssue } from "../../redux/issueSlice";
 
-export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
+export const AddModal = ({
+  showModal,
+  closeModal,
+  statusNum,
+  lastSortId,
+  forceLoadingHandler,
+}) => {
   const dispatch = useDispatch();
 
   // form data
-  const [form, setForm] = useState({ status: statusNum, name: '' });
+  const [form, setForm] = useState({ status: statusNum, name: "" });
 
   // auto complite status
   const [autoComplite, setautoComplite] = useState(false);
@@ -22,7 +28,7 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'status')
+    if (name === "status")
       setForm((form) => ({ ...form, [name]: Number(value) }));
     else setForm((form) => ({ ...form, [name]: value }));
   };
@@ -30,10 +36,11 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
   let formData = { sortId: lastSortId + 1, ...form };
 
   const addIssueHandler = () => {
-    if (window.confirm('저장할까요?')) {
+    if (window.confirm("저장할까요?")) {
       dispatch(addIssue(formData));
+      forceLoadingHandler();
+      closeModal();
     }
-    closeModal();
   };
 
   return (
@@ -45,56 +52,56 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
         }}
       >
         <InputWarp>
-          <label htmlFor='title'>제목</label>
+          <label htmlFor="title">제목</label>
           <input
             onChange={onChangeHandler}
-            type='text'
-            name='title'
-            value={form.title || ''}
-            id='title'
+            type="text"
+            name="title"
+            value={form.title || ""}
+            id="title"
             maxLength={30}
           />
         </InputWarp>
         <InputWarp>
-          <label htmlFor='content'>내용</label>
+          <label htmlFor="content">내용</label>
           <textarea
             onChange={onChangeHandler}
-            name='content'
-            id='content'
-            cols='30'
-            rows='10'
+            name="content"
+            id="content"
+            cols="30"
+            rows="10"
           />
         </InputWarp>
         <BottomInputWarp>
-          <label htmlFor='name'>담당자</label>
+          <label htmlFor="name">담당자</label>
           <input
             onChange={onChangeHandler}
-            type='담당자'
-            id='name'
-            name='name'
-            autoComplete='off'
-            value={form.name || ''}
+            type="담당자"
+            id="name"
+            name="name"
+            autoComplete="off"
+            value={form.name || ""}
           />
         </BottomInputWarp>
         <BottomInputWarp>
-          <label htmlFor='deadline'>마감일</label>
+          <label htmlFor="deadline">마감일</label>
           <input
             onChange={onChangeHandler}
-            type='datetime-local'
-            id='deadline'
-            name='deadline'
-            value={form.deadline || ''}
+            type="datetime-local"
+            id="deadline"
+            name="deadline"
+            value={form.deadline || ""}
           />
         </BottomInputWarp>
         <StatusSelect>
           <select
-            name='status'
+            name="status"
             onChange={onChangeHandler}
             value={form.status || statusNum}
           >
-            <option value='0'>Todo</option>
-            <option value='1'>Working</option>
-            <option value='2'>Done</option>
+            <option value="0">Todo</option>
+            <option value="1">Working</option>
+            <option value="2">Done</option>
           </select>
         </StatusSelect>
         <ButtonWarp>
@@ -111,7 +118,7 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
               e.preventDefault();
               addIssueHandler();
             }}
-            type='submit'
+            type="submit"
           >
             저장
           </button>

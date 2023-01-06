@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IssueBox } from "../components/kanbanBox/IssueBox";
 import { getIssues } from "../redux/issueSlice";
+import { forceLoading } from "../redux/issueSlice";
 import { LoadingSpinner } from "../components/loadingSpinner/LoadingSpinner";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { issue } = useSelector((state) => state.issueSlice);
-  const [isLoading, setisLoading] = useState(false);
+  const { issue, isLoading } = useSelector((state) => state.issueSlice);
 
   const [newIssueData, setnewIssueData] = useState();
 
@@ -16,24 +16,32 @@ export default function Home() {
   const [getLastSortId, setGetLastSortId] = useState();
   useEffect(() => {
     setTimeout(() => {
-      // let newIssueArr = [...issue];
-      // newIssueArr.sort((a, b) => b.sortId - a.sortId);
-      // setGetLastSortId(newIssueArr[0].sortId);
+      let newIssueArr = [...issue];
+      newIssueArr?.sort((a, b) => b.sortId - a.sortId);
+      setGetLastSortId(newIssueArr[0]?.sortId);
       setnewIssueData([...issue].sort((a, b) => a.sortId - b.sortId));
     }, 500);
   }, [issue]);
 
   // data fetch
   useEffect(() => {
-    setisLoading(true);
+    dispatch(forceLoading());
     dispatch(getIssues());
     setTimeout(() => {
-      setisLoading(false);
+      dispatch(forceLoading());
     }, 1500);
   }, [dispatch]);
 
   // data array
   const issueBoxData = [newIssueData, newIssueData, newIssueData];
+
+  // force lading 500ms after requset
+  const forceLoadingHandler = () => {
+    dispatch(forceLoading());
+    setTimeout(() => {
+      dispatch(forceLoading());
+    }, 500);
+  };
 
   return (
     <Container>
@@ -49,7 +57,8 @@ export default function Home() {
               key={index}
               statusNum={index}
               issueData={item}
-              lastSortId={issueBoxData[0]?.length}
+              lastSortId={getLastSortId}
+              forceLoadingHandler={forceLoadingHandler}
             />
           );
         })}

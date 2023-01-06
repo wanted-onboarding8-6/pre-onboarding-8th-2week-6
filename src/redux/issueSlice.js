@@ -52,6 +52,13 @@ export const deleteIssue = createAsyncThunk(
   }
 );
 
+export const forceLoading = createAsyncThunk(
+  "FORCE_LOADING_AFTER_REQUEST",
+  async (payload, thunkAPI) => {
+    return thunkAPI.fulfillWithValue();
+  }
+);
+
 const initialState = {
   issue: [],
   dndStatus: {
@@ -72,17 +79,18 @@ export const issueSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getIssues.pending, (state, action) => {});
     builder.addCase(getIssues.fulfilled, (state, action) => {
       state.issue = action.payload;
     });
-    builder.addCase(getIssues.rejected, (state, action) => {});
-    builder.addCase(addIssue.pending, (state, action) => {});
+    builder.addCase(getIssues.rejected, (state, action) => {
+      state.error = "알 수 없는 오류. 새로고침 요망";
+    });
     builder.addCase(addIssue.fulfilled, (state, action) => {
       state.issue.push(action.payload);
     });
-    builder.addCase(addIssue.rejected, (state, action) => {});
-    builder.addCase(updateIssue.pending, (state, action) => {});
+    builder.addCase(addIssue.rejected, (state, action) => {
+      state.error = "알 수 없는 오류. 새로고침 요망";
+    });
     builder.addCase(updateIssue.fulfilled, (state, action) => {
       console.log(current(state));
       console.log(action);
@@ -102,10 +110,18 @@ export const issueSlice = createSlice({
       state.issue = newState.sort((a, b) => a.sortId - b.sortId);
       // state.issue.push(action.payload);
     });
-    builder.addCase(updateIssue.rejected, (state, action) => {});
+    builder.addCase(updateIssue.rejected, (state, action) => {
+      state.error = "알 수 없는 오류. 새로고침 요망";
+    });
     builder.addCase(deleteIssue.fulfilled, (state, action) => {
       const newState = state.issue.filter((item) => item.id !== action.payload);
       state.issue = newState;
+    });
+    builder.addCase(deleteIssue.rejected, (state, action) => {
+      state.error = "알 수 없는 오류. 새로고침 요망";
+    });
+    builder.addCase(forceLoading.fulfilled, (state, action) => {
+      state.isLoading = state.isLoading ? false : true;
     });
   },
 });

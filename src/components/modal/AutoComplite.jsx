@@ -7,9 +7,6 @@ export const AutoCompliteInput = ({
   name,
   autoComplite,
   setautoComplite,
-  type,
-  setForm,
-  setUpdateForm,
 }) => {
   //name data fetch
   const [nameData, setNameData] = useState([]);
@@ -40,12 +37,6 @@ export const AutoCompliteInput = ({
           <AutoCompliteItem
             key={index}
             onClick={(e) => {
-              type === "add"
-                ? setForm((form) => ({ ...form, name: e.target.innerText }))
-                : setUpdateForm((form) => ({
-                    ...form,
-                    name: e.target.innerText,
-                  }));
               onChangeHandler(e);
               setautoComplite(false);
             }}

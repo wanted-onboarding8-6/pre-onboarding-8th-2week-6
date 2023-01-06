@@ -116,8 +116,6 @@ export const AddModal = ({
           name={form.name}
           autoComplite={autoComplite}
           setautoComplite={setautoComplite}
-          type="add"
-          // setForm={setForm}
         />
       </ModalForm>
     </ModalPage>

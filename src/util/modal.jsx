@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ModalPage = ({ showModal, closeModal, children }) => {
   const onClickhandler = (e) => {
@@ -47,8 +47,10 @@ const StyledModalBackground = styled.div`
 `;
 
 const StyledModal = styled.div`
-  width: 35vw;
-  height: 45vh;
+  width: 370px;
+  height: 480px;
+  padding: 15px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 15px;
+  position: relative;
 `;

@@ -7,6 +7,30 @@ import useForm from '../../hooks/useForm';
 
 export const DetailModal = ({ showModal, closeModal, cardData }) => {
   const dispatch = useDispatch();
+
+
+  // form data
+  //const [updateForm, setUpdateForm] = useState({ ...cardData });
+  //
+  //// auto complite status
+  //const [autoComplite, setautoComplite] = useState(false);
+  //const [isNameInputTouched, setIsNameInputTouched] = useState(false);
+  //
+  //useEffect(() => {
+  //  updateForm.name.length > 0 && isNameInputTouched
+  //    ? setautoComplite(true)
+  //    : setautoComplite(false);
+  //}, [updateForm.name, isNameInputTouched]);
+  //
+  //// onChange form data handler
+  //const onChangeHandler = (e) => {
+  //  const { name, value } = e.target;
+  // 
+  // if (name === 'status')
+  //    setUpdateForm((form) => ({ ...form, [name]: Number(value) }));
+  //  else setUpdateForm((form) => ({ ...form, [name]: value }));
+  //};
+
   const { form: updateForm, autoComplite, setautoComplite, onChangeHandler } = useForm({ ...cardData });
 
   let formData = { sortId: cardData.sortId, ...updateForm };
@@ -55,6 +79,7 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
         <BottomInputWarp>
           <label htmlFor='name'>담당자</label>
           <input
+            onClick={() => setIsNameInputTouched(true)}
             onChange={onChangeHandler}
             type='담당자'
             name='name'
@@ -103,57 +128,66 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
             변경사항 저장
           </button>
         </ButtonWarp>
-        <AutoCompliteInput
-          onChangeHandler={onChangeHandler}
-          name={updateForm.name}
-          autoComplite={autoComplite}
-          setautoComplite={setautoComplite}
-        />
+        {autoComplite && (
+          <AutoCompliteInput
+            onChangeHandler={onChangeHandler}
+            name={updateForm.name}
+            autoComplite={autoComplite}
+            setautoComplite={setautoComplite}
+          />
+        )}
       </ModalForm>
     </ModalPage>
   );
 };
 
 const ModalForm = styled.form`
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
   z-index: 3;
+
+  span {
+    font-size: 18px;
+  }
 `;
 
 const InputWarp = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: max-content;
-
+  width: 350px;
   font-size: 0.9rem;
+
   & label {
     width: 50px;
-    margin-right: 10px;
-    font-weight: bold;
+    font-weight: 700;
+    visibility: hidden;
   }
+
   & input {
-    width: 300px;
-    height: 25px;
-    border: 1px solid black;
+    width: 100%;
+    height: 35px;
+    border: none;
     border-radius: 5px;
-    transition: 0.3s;
+    padding: 0;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 25px;
+
     &:focus {
       outline: none;
-      border: 1px solid #a5a5a5;
     }
   }
+
   & textarea {
-    width: 300px;
+    width: 100%;
+    max-height: 200px;
     resize: none;
     overflow: hidden;
     border-radius: 5px;
-    border: 1px solid black;
-    transition: 0.3s;
+    border: none;
+    background-color: #f4f4f4;
+    padding: 8px;
+    box-sizing: border-box;
+
     &:focus {
       outline: none;
       border: 1px solid #a5a5a5;
@@ -162,21 +196,29 @@ const InputWarp = styled.div`
 `;
 
 const BottomInputWarp = styled.div`
-  margin-top: 10px;
+  width: 340px;
   display: flex;
-  justify-content: flex-end;
-  width: 300px;
-  font-size: 0.9rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
   & label {
     width: 50px;
-    margin-right: 10px;
-    font-weight: bold;
+    font-weight: 600;
   }
+
   & input {
-    width: 180px;
-    border: 1px solid black;
+    width: 80%;
+    height: 35px;
+    border: 1px solid #c7c7c7;
     border-radius: 5px;
-    transition: 0.3s;
+    padding: 5px;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: #f4f4f4;
+    }
+
     &:focus {
       outline: none;
       border: 1px solid #a5a5a5;
@@ -185,10 +227,11 @@ const BottomInputWarp = styled.div`
 `;
 
 const StatusSelect = styled.div`
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-  width: 300px;
+  position: absolute;
+  top: 45px;
+  right: 50%;
+  transform: translateX(50%);
+
   & select {
     border: 1px solid black;
     border-radius: 5px;
@@ -201,9 +244,31 @@ const StatusSelect = styled.div`
 `;
 
 const ButtonWarp = styled.div`
-  margin-top: 20px;
+  width: 350px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+
   & button {
-    margin: 0 10px 0 10px;
+    width: 170px;
+    background-color: #fff;
+    border: 1px solid #c7c7c7;
+    padding: 8px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:nth-child(1):hover {
+      background-color: #d4d4d4;
+      border-color: #d4d4d4;
+    }
+
+    &:nth-child(2):hover {
+      background-color: #ccecf6;
+      color: #00339a;
+      border-color: #ccecf6;
+    }
   }
 `;

@@ -20,7 +20,7 @@ export const AutoCompliteInput = ({
 
   useEffect(() => {
     nameDataFetch();
-  }, [setNameData]);
+  }, []);
 
   let newNameData = nameData?.filter(
     (item) =>
@@ -50,19 +50,24 @@ export const AutoCompliteInput = ({
 
 const AutoComplite = styled.div`
   position: fixed;
-  bottom: 90px;
-  right: 72px;
-  width: 15vw;
-  max-height: 100px;
+  bottom: 66px;
+  right: 30px;
+  width: 270px;
+  height: 80px;
   overflow-y: scroll;
-  border: 3px solid lightgray;
-  background-color: white;
+  border: 1px solid #f4f4f4;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  padding: 5px;
+  box-sizing: border-box;
+  color: gray;
   z-index: 1;
 
   &::-webkit-scrollbar {
     width: 3px;
     background-color: #aaa;
   }
+
   &::-webkit-scrollbar-thumb {
     height: 10vh;
     background: #575757;
@@ -70,8 +75,11 @@ const AutoComplite = styled.div`
 `;
 
 const AutoCompliteItem = styled.div`
+  padding: 5px;
   cursor: pointer;
+
   &:hover {
-    background-color: lightgray;
+    background-color: #f4f4f4;
+    color: #000;
   }
 `;

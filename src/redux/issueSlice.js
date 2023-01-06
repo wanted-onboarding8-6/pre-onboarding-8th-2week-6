@@ -77,56 +77,55 @@ const initialState = {
 export const issueSlice = createSlice({
   name: "issue",
   initialState,
-  reducers: {},
+  reducers: {
+    loadingStart: (state) => {
+      state.isLoading = true;
+    },
+    loadingEnd: (state) => {
+      state.isLoading = false;
+    },
+  },
   extraReducers: (builder) => {
+    builder.addCase(getIssues.pending, (state, action) => {});
     builder.addCase(getIssues.fulfilled, (state, action) => {
       state.issue = action.payload;
     });
-    builder.addCase(getIssues.rejected, (state, action) => {
-      state.error = "알 수 없는 오류. 새로고침 요망";
-    });
+    builder.addCase(getIssues.rejected, (state, action) => {});
+    builder.addCase(addIssue.pending, (state, action) => {});
     builder.addCase(addIssue.fulfilled, (state, action) => {
+      if (state.isLoading === true) return;
       state.issue.push(action.payload);
     });
-    builder.addCase(addIssue.rejected, (state, action) => {
-      state.error = "알 수 없는 오류. 새로고침 요망";
-    });
+    builder.addCase(addIssue.rejected, (state, action) => {});
+    builder.addCase(updateIssue.pending, (state, action) => {});
     builder.addCase(updateIssue.fulfilled, (state, action) => {
       console.log(current(state));
       console.log(action);
-      let newState = state.issue.filter(
-        (item) => item.id !== action.payload.id
+      if (state.isLoading === true) return;
+      const newState = state.issue.map((item) =>
+        action.meta.arg.id === item.id
+          ? {
+              ...item,
+              sortId: action.meta.arg.sortId,
+              title: action.meta.arg.title,
+              content: action.meta.arg.content,
+              deadline: action.meta.arg.deadline,
+              status: action.meta.arg.status,
+              name: action.meta.arg.name,
+            }
+          : item
       );
-      // let newState = state.issue.map((item) =>
-      //   action.meta.arg.id === item.id
-      //     ? {
-      //         ...item,
-      //         sortId: action.payload.sortId,
-      //         title: action.payload.title,
-      //         content: action.payload.content,
-      //         deadline: action.payload.deadline,
-      //         status: action.payload.status,
-      //         name: action.payload.name,
-      //       }
-      //     : item
-      // );
-      newState.push(action.payload);
       state.issue = newState.sort((a, b) => a.sortId - b.sortId);
+      // state.issue.push(action.payload);
     });
-    builder.addCase(updateIssue.rejected, (state, action) => {
-      state.error = "알 수 없는 오류. 새로고침 요망";
-    });
+    builder.addCase(updateIssue.rejected, (state, action) => {});
     builder.addCase(deleteIssue.fulfilled, (state, action) => {
+      if (state.isLoading === true) return;
       const newState = state.issue.filter((item) => item.id !== action.payload);
       state.issue = newState;
-    });
-    builder.addCase(deleteIssue.rejected, (state, action) => {
-      state.error = "알 수 없는 오류. 새로고침 요망";
-    });
-    builder.addCase(forceLoading.fulfilled, (state, action) => {
-      state.isLoading = state.isLoading ? false : true;
     });
   },
 });
 
+export const issueAction = issueSlice.actions;
 export default issueSlice.reducer;

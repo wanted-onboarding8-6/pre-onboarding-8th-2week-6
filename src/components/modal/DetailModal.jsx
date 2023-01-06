@@ -18,6 +18,7 @@ export const DetailModal = ({
     autoComplite,
     setautoComplite,
     onChangeHandler,
+    reset,
   } = useForm({ ...cardData });
 
   let formData = { sortId: cardData.sortId, ...updateForm };
@@ -35,9 +36,14 @@ export const DetailModal = ({
     setautoComplite(false);
   };
 
+  const cancelHandler = () => {
+    reset(cardData);
+    closeModal();
+  };
+
   return (
     <ModalPage showModal={showModal} closeModal={closeModal}>
-      <ModalForm onClick={(e) => formOnClickHandler(e)}>
+      <ModalForm onClick={formOnClickHandler}>
         <div>
           <span>{cardData.id} #</span>
           <span></span>
@@ -67,7 +73,6 @@ export const DetailModal = ({
         <BottomInputWarp>
           <label htmlFor="name">담당자</label>
           <input
-            // onClick={() => setIsNameInputTouched(true)}
             onChange={onChangeHandler}
             type="담당자"
             name="name"
@@ -98,21 +103,8 @@ export const DetailModal = ({
           </select>
         </StatusSelect>
         <ButtonWarp>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              closeModal();
-            }}
-          >
-            닫기
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              updateIssueHandler();
-            }}
-            type="submit"
-          >
+          <button onClick={cancelHandler}>닫기</button>
+          <button type="submit" onClick={updateIssueHandler}>
             변경사항 저장
           </button>
         </ButtonWarp>

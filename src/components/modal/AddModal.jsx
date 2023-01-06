@@ -14,10 +14,11 @@ export const AddModal = ({
 }) => {
   const dispatch = useDispatch();
 
-  const { form, autoComplite, setautoComplite, onChangeHandler } = useForm({
-    status: statusNum,
-    name: "",
-  });
+  const { form, autoComplite, setautoComplite, onChangeHandler, reset } =
+    useForm({
+      status: statusNum,
+      name: "",
+    });
 
   let formData = { sortId: lastSortId + 1, ...form };
 
@@ -27,6 +28,11 @@ export const AddModal = ({
       forceLoadingHandler();
       closeModal();
     }
+  };
+
+  const cancelHandler = () => {
+    reset({ status: statusNum, name: "" });
+    closeModal();
   };
 
   return (
@@ -91,14 +97,7 @@ export const AddModal = ({
           </select>
         </StatusSelect>
         <ButtonWarp>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              closeModal();
-            }}
-          >
-            취소
-          </button>
+          <button onClick={cancelHandler}>취소</button>
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -155,7 +154,7 @@ const InputWarp = styled.div`
 
   & textarea {
     width: 100%;
-    max-height: 200px;
+    height: 200px;
     resize: none;
     overflow: hidden;
     border-radius: 5px;

@@ -10,16 +10,22 @@ export const AutoCompliteInput = ({
 }) => {
   //name data fetch
   const [nameData, setNameData] = useState([]);
+  const [isTouched, setIsTouched] = useState(false);
 
   const nameDataFetch = async () => {
-    const data = await nameAPI.getNames().then((res) => {
-      setNameData(res.data);
-    });
+    const data = await nameAPI.getNames().then((res) => setNameData(res.data));
     return data;
+  };
+
+  const nameSelect = (e) => {
+    onChangeHandler(e);
+    setautoComplite(false);
   };
 
   useEffect(() => {
     nameDataFetch();
+
+    if (!isTouched) setautoComplite(false);
   }, []);
 
   let newNameData = nameData?.filter(
@@ -28,19 +34,16 @@ export const AutoCompliteInput = ({
   );
 
   return (
-    <AutoComplite style={!autoComplite ? { display: "none" } : null}>
+    <AutoComplite
+      style={!autoComplite ? { display: "none" } : null}
+      onFocus={() => setIsTouched(true)}
+    >
       {newNameData.length === 0 && (
         <AutoCompliteItem>일치하는 담당자가 없습니다.</AutoCompliteItem>
       )}
       {newNameData &&
         newNameData.map((item, index) => (
-          <AutoCompliteItem
-            key={index}
-            onClick={(e) => {
-              onChangeHandler(e);
-              setautoComplite(false);
-            }}
-          >
+          <AutoCompliteItem key={index} onClick={nameSelect} id="name">
             {item?.name}
           </AutoCompliteItem>
         ))}

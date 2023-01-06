@@ -32,8 +32,6 @@ export const AddModal = ({
     else setForm((form) => ({ ...form, [name]: value }));
   };
 
-  console.log(form);
-
   let formData = { sortId: lastSortId + 1, ...form };
 
   const addIssueHandler = () => {

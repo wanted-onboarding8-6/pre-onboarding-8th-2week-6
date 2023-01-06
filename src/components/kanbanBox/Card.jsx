@@ -55,7 +55,7 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
     dispatch(
       updateDndStatus({
         ...dudStatusData,
-        isDragOver: false,
+        isDragOver: true,
         position: "none",
       })
     );

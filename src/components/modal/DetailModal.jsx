@@ -19,7 +19,6 @@ export const DetailModal = ({
   // auto complite status
   const [autoComplite, setautoComplite] = useState(false);
 
-  console.log(updateForm);
   useEffect(() => {
     if (updateForm.name !== cardData.name) {
       updateForm.name.length > 0

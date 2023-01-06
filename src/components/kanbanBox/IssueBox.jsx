@@ -110,6 +110,7 @@ export const IssueBox = ({
                   key={item.id}
                   cardData={item}
                   forceLoadingHandler={forceLoadingHandler}
+                  onClick={(e) => e.stopPropagation()}
                 />
               );
             }

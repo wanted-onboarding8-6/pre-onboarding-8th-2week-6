@@ -1,7 +1,7 @@
 # 이슈 트래킹 툴
 
 배포주소 :
-<a href="https://vercel.com/lee-yo-han/pre-onboarding-8th-2week-6">https://vercel.com/lee-yo-han/pre-onboarding-8th-2week-6</a>
+<a href="https://pre-onboarding-8th-2week-6.vercel.app/">https://vercel.com/lee-yo-han/pre-onboarding-8th-2week-6</a>
 
 ## 6조
 

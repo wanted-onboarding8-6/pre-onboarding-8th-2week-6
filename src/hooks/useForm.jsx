@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const useForm = (defaultValue = {}) => {
   // form data
@@ -13,13 +13,13 @@ const useForm = (defaultValue = {}) => {
 
   // onChange form data handler
   const onChangeHandler = (e) => {
-    setautoComplite(true);
-
     const { name, value, id } = e.target;
-
-    if (id === 'name')
+    if (name === "name") {
+      setautoComplite(true);
+    }
+    if (id === "name")
       setForm((form) => ({ ...form, name: e.target.textContent }));
-    if (name === 'status')
+    if (name === "status")
       setForm((form) => ({ ...form, [name]: Number(value) }));
     else setForm((form) => ({ ...form, [name]: value }));
   };

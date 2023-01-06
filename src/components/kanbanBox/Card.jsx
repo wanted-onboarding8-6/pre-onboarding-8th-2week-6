@@ -129,7 +129,6 @@ export const Card = ({ cardData }) => {
       if (item.id === dudStatusData.endId) {
         dropCardIndexNumber = index;
       }
-      return dropedCardIndex;
     });
 
     // new critica

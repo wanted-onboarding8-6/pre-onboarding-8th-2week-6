@@ -94,21 +94,24 @@ export const issueSlice = createSlice({
     builder.addCase(updateIssue.fulfilled, (state, action) => {
       console.log(current(state));
       console.log(action);
-      const newState = state.issue.map((item) =>
-        action.meta.arg.id === item.id
-          ? {
-              ...item,
-              sortId: action.meta.arg.sortId,
-              title: action.meta.arg.title,
-              content: action.meta.arg.content,
-              deadline: action.meta.arg.deadline,
-              status: action.meta.arg.status,
-              name: action.meta.arg.name,
-            }
-          : item
+      let newState = state.issue.filter(
+        (item) => item.id !== action.payload.id
       );
+      // let newState = state.issue.map((item) =>
+      //   action.meta.arg.id === item.id
+      //     ? {
+      //         ...item,
+      //         sortId: action.payload.sortId,
+      //         title: action.payload.title,
+      //         content: action.payload.content,
+      //         deadline: action.payload.deadline,
+      //         status: action.payload.status,
+      //         name: action.payload.name,
+      //       }
+      //     : item
+      // );
+      newState.push(action.payload);
       state.issue = newState.sort((a, b) => a.sortId - b.sortId);
-      // state.issue.push(action.payload);
     });
     builder.addCase(updateIssue.rejected, (state, action) => {
       state.error = "알 수 없는 오류. 새로고침 요망";

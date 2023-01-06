@@ -76,6 +76,7 @@ export const IssueBox = ({
     console.log("업뎃된데이터@@@@", {
       ...startDCardData,
       status: dudStatusData.endStatus,
+      sortId: lastSortId + 1,
     });
     dispatch(
       updateIssue({ ...startDCardData, status: dudStatusData.endStatus })

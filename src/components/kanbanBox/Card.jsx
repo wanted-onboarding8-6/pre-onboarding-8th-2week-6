@@ -118,20 +118,22 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
   };
 
   const onDragEnd = (e) => {
+    dragFunction(e, "onDragEnd");
     updateIssueHandler();
   };
 
   const updateIssueHandler = () => {
     // drag data
-    const startIssueData = [...issue].filter(
+    const startIssueData = [...issue]?.filter(
       (item) => item.id === dudStatusData.startId
     )[0];
     console.log("뽑아융", startIssueData);
 
     // drop data
-    const thisStatusArr = [...issue].filter(
+    const thisStatusArr = [...issue]?.filter(
       (item) => item.status === dudStatusData.endStatus
     );
+    console.log("thisStatusArr@@@@@@@@@@@@@@@@@@@@", thisStatusArr);
 
     let dropCardIndexNumber = 0;
     const dropedCardIndex = thisStatusArr.map((item, index) => {
@@ -147,26 +149,26 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       dispatch(
         updateIssue({
           ...startIssueData,
-          sortId: thisStatusArr[dropCardIndexNumber].sortId + 0.1,
+          sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 1,
           status: dudStatusData.endStatus,
         })
       );
       console.log("업뎃된데이터@@@@@@@", {
         ...startIssueData,
-        sortId: thisStatusArr[dropCardIndexNumber].sortId + 0.1,
+        sortId: thisStatusArr[dropCardIndexNumber]?.sortId + 1,
         status: dudStatusData.endStatus,
       });
     } else if (dudStatusData.prevPosition === "top") {
       dispatch(
         updateIssue({
           ...startIssueData,
-          sortId: thisStatusArr[dropCardIndexNumber].sortId - 0.1,
+          sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 1,
           status: dudStatusData.endStatus,
         })
       );
       console.log("업뎃된데이터@@@@@@@", {
         ...startIssueData,
-        sortId: thisStatusArr[dropCardIndexNumber].sortId - 0.1,
+        sortId: thisStatusArr[dropCardIndexNumber]?.sortId - 1,
         status: dudStatusData.endStatus,
       });
     }
@@ -215,7 +217,9 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
         >
           <p>{cardData?.content}</p>
         </CardBody>
-        <CardFooter onDragOver={onDragOverBottom}>
+        <CardFooter
+        // onDragOver={onDragOverBottom}
+        >
           <span>{cardData?.name}</span>
           <span>deadline : ~ {cardData?.deadline?.replace("T", " / ")}</span>
         </CardFooter>

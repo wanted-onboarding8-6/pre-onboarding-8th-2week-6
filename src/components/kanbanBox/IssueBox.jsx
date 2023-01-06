@@ -7,12 +7,7 @@ import { dragFunction } from "./Card";
 import { AddModal } from "../modal/AddModal";
 import { updateDndStatus } from "../../redux/dndSlice";
 
-export const IssueBox = ({
-  statusNum,
-  issueData,
-  lastSortId,
-  forceLoadingHandler,
-}) => {
+export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
   const dispatch = useDispatch();
   const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
 
@@ -83,7 +78,6 @@ export const IssueBox = ({
       dispatch(
         updateIssue({ ...startDCardData, status: dudStatusData.endStatus })
       );
-      // forceLoadingHandler();
     }
   };
 
@@ -104,7 +98,6 @@ export const IssueBox = ({
         closeModal={closeAddIssueModal}
         statusNum={statusNum}
         lastSortId={lastSortId}
-        forceLoadingHandler={forceLoadingHandler}
       />
       <BoradTop>
         <div>
@@ -122,7 +115,6 @@ export const IssueBox = ({
                 <Card
                   key={item.id}
                   cardData={item}
-                  forceLoadingHandler={forceLoadingHandler}
                   onClick={(e) => e.stopPropagation()}
                 />
               );

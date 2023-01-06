@@ -18,7 +18,6 @@ export const addIssue = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await issueAPI.createIssue(payload);
-      console.log("data", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (errer) {
       return thunkAPI.rejectWithValue(errer);
@@ -30,9 +29,7 @@ export const updateIssue = createAsyncThunk(
   "UPDATE_ISSUE",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
       const response = await issueAPI.updateIssue(payload.id, payload);
-      console.log("response", response);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -86,21 +83,21 @@ export const issueSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getIssues.pending, (state, action) => {});
     builder.addCase(getIssues.fulfilled, (state, action) => {
       state.issue = action.payload;
     });
-    builder.addCase(getIssues.rejected, (state, action) => {});
+    builder.addCase(getIssues.rejected, (state, action) => {
+      state.error = "알 수 없는 오류, 새로고침 해주시기 바랍니다.";
+    });
     builder.addCase(addIssue.pending, (state, action) => {});
     builder.addCase(addIssue.fulfilled, (state, action) => {
       if (state.isLoading === true) return;
       state.issue.push(action.payload);
     });
-    builder.addCase(addIssue.rejected, (state, action) => {});
-    builder.addCase(updateIssue.pending, (state, action) => {});
+    builder.addCase(getIssues.rejected, (state, action) => {
+      state.error = "알 수 없는 오류, 새로고침 해주시기 바랍니다.";
+    });
     builder.addCase(updateIssue.fulfilled, (state, action) => {
-      console.log(current(state));
-      console.log(action);
       if (state.isLoading === true) return;
       const newState = state.issue.map((item) =>
         action.meta.arg.id === item.id
@@ -116,13 +113,17 @@ export const issueSlice = createSlice({
           : item
       );
       state.issue = newState.sort((a, b) => a.sortId - b.sortId);
-      // state.issue.push(action.payload);
     });
-    builder.addCase(updateIssue.rejected, (state, action) => {});
+    builder.addCase(updateIssue.rejected, (state, action) => {
+      state.error = "알 수 없는 오류, 새로고침 해주시기 바랍니다.";
+    });
     builder.addCase(deleteIssue.fulfilled, (state, action) => {
       if (state.isLoading === true) return;
       const newState = state.issue.filter((item) => item.id !== action.payload);
       state.issue = newState;
+    });
+    builder.addCase(deleteIssue.rejected, (state, action) => {
+      state.error = "알 수 없는 오류, 새로고침 해주시기 바랍니다.";
     });
   },
 });

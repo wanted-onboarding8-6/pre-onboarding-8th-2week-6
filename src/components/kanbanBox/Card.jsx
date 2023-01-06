@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteIssue } from "../../redux/issueSlice";
-import { DetailModal } from "../modal/DetailModal";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { updateIssue } from "../../redux/issueSlice";
+import { deleteIssue } from "../../redux/issueSlice";
+import { updateDndStatus } from "../../redux/dndSlice";
+import { DetailModal } from "../modal/DetailModal";
 
 // dnd function
 export const dragFunction = (e, type) => {
@@ -13,9 +14,10 @@ export const dragFunction = (e, type) => {
 };
 
 // component start ##############
-export const Card = ({ cardData, dndStatus, setDndStatus }) => {
+export const Card = ({ cardData }) => {
   const dispatch = useDispatch();
   const { issue } = useSelector((state) => state.issueSlice);
+  const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
 
   const deleteIssueHandler = (e, issueId) => {
     e.stopPropagation();
@@ -34,48 +36,58 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
   };
 
   //####### dnd event ########
-  console.log(dndStatus);
+  console.log("리덕스 ㅎㅇ", dudStatusData);
   const [dndPosition, setDndPosition] = useState("none");
 
-  const onDragStart = () => {
-    setDndStatus({
-      ...dndStatus,
-      startId: cardData?.id,
-      startStatus: cardData?.status,
-    });
+  const onDragStart = (e) => {
+    dispatch(
+      updateDndStatus({
+        ...dudStatusData,
+        startId: cardData?.id,
+        startStatus: cardData?.status,
+      })
+    );
   };
 
   const onDragEnter = (e) => {
     e.preventDefault();
-    setDndStatus({
-      ...dndStatus,
-      isDragOver: false,
-      position: "none",
-    });
+    dispatch(
+      updateDndStatus({
+        ...dudStatusData,
+        isDragOver: false,
+        position: "none",
+      })
+    );
     setDndPosition("none");
   };
   const onDragLeave = (e) => {
     dragFunction(e, "ondragleave");
-    setDndStatus({ ...dndStatus, isDragOver: false, position: "none" });
+    dispatch(
+      updateDndStatus({
+        ...dudStatusData,
+        isDragOver: false,
+        position: "none",
+      })
+    );
     setDndPosition("none");
   };
+
+  const [dragOverData, setDragOverData] = useState({
+    isDragOver: true,
+    position: "top",
+    prevPosition: "top",
+  });
   const onDragOverTop = (e) => {
     dragFunction(e, "ondragover");
-    setDndStatus({
-      ...dndStatus,
-      isDragOver: true,
-      position: "top",
-      prevPosition: "top",
-    });
+    setDragOverData({ isDragOver: true, position: "top", prevPosition: "top" });
     setDndPosition("top");
   };
   const onDragOverBottom = (e) => {
     dragFunction(e, "ondragover");
-    setDndStatus({
-      ...dndStatus,
+    setDragOverData({
       isDragOver: true,
-      position: "bottom",
-      prevPosition: "bottom",
+      position: "button",
+      prevPosition: "button",
     });
     setDndPosition("botton");
   };
@@ -89,66 +101,55 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
       cardData?.sortId,
       cardData?.status
     );
-    setDndStatus({
-      ...dndStatus,
-      isDragOver: false,
-      position: "none",
-      endId: cardData?.id,
-      endStatus: cardData?.status,
-    });
+    dispatch(
+      updateDndStatus({
+        ...dudStatusData,
+        isDragOver: false,
+        position: "none",
+        prevPosition: dragOverData.position,
+        endId: cardData?.id,
+        endStatus: cardData?.status,
+      })
+    );
     setDndPosition("none");
-
     updateIssueHandler();
+    setTimeout(() => {}, 500);
   };
 
   const updateIssueHandler = () => {
-    // except argument
-    const forRejectArr = [...issue].filter(
-      (item) => item.status === dndStatus.startStatus
-    );
-    const cardIndex = forRejectArr.findIndex(
-      (item) => item.id === dndStatus.startId
-    );
-    console.log("체크용", forRejectArr);
-    console.log("체크용", cardIndex);
-
     // drag data
     const startIssueData = [...issue].filter(
-      (item) => item.id === dndStatus.startId
+      (item) => item.id === dudStatusData.startId
     )[0];
     console.log("뽑아융", startIssueData);
 
     // drop data
     const thisStatusArr = [...issue].filter(
-      (item) => item.status === dndStatus.endStatus
+      (item) => item.status === dudStatusData.endStatus
     );
 
     let dropCardIndexNumber = 0;
     const dropedCardIndex = thisStatusArr.map((item, index) => {
-      if (item.id === dndStatus.endId) {
+      if (item.id === dudStatusData.endId) {
         dropCardIndexNumber = index;
       }
     });
-    console.log("어딨냐", dndStatus);
-    console.log("어딨냐1", thisStatusArr);
-    console.log("어딨냐2", dropedCardIndex);
-    console.log("어딨냐3", dropCardIndexNumber);
 
     // new critica
-    if (dndStatus.prevPosition === "bottom") {
+    if (dudStatusData.prevPosition === "bottom") {
       dispatch(
         updateIssue({
           ...startIssueData,
           sortId: thisStatusArr[dropCardIndexNumber].sortId + 0.001,
-          status: dndStatus.endStatus,
+          status: dudStatusData.endStatus,
         })
       );
-    } else if (dndStatus.prevPosition === "top") {
+    } else if (dudStatusData.prevPosition === "top") {
       dispatch(
         updateIssue({
           ...startIssueData,
           sortId: thisStatusArr[dropCardIndexNumber].sortId - 0.001,
-          status: dndStatus.endStatus,
+          status: dudStatusData.endStatus,
         })
       );
     }
@@ -178,8 +179,9 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         draggable
+        onDragOver={onDragOverTop}
       >
-        <CardTop onDragOver={onDragOverTop}>
+        <CardTop>
           <span>
             {cardData?.id} # - {cardData?.title}
           </span>
@@ -192,7 +194,7 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
         </CardBody>
         <CardFooter onDragOver={onDragOverBottom}>
           <span>{cardData?.name}</span>
-          <span>deadline : ~ {cardData?.deadline.replace("T", " / ")}</span>
+          <span>deadline : ~ {cardData?.deadline?.replace("T", " / ")}</span>
         </CardFooter>
       </Container>
       <DndHr

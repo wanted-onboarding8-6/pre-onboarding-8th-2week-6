@@ -31,7 +31,6 @@ export const updateIssue = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      console.log("작동작동작동작동작동작동작동작동작동작동작동");
       const response = await issueAPI.updateIssue(payload.id, payload);
       console.log("response", response);
       return thunkAPI.fulfillWithValue(response.data);
@@ -55,6 +54,15 @@ export const deleteIssue = createAsyncThunk(
 
 const initialState = {
   issue: [],
+  dndStatus: {
+    isDragOver: false,
+    position: "none",
+    prevPosition: "none",
+    startId: 0,
+    endId: 0,
+    startStatus: 0,
+    endStatus: 0,
+  },
   isLoading: false,
   error: null,
 };

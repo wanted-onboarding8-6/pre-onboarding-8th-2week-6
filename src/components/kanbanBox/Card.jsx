@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateIssue } from "../../redux/issueSlice";
-import { deleteIssue } from "../../redux/issueSlice";
+import { updateIssue, deleteIssue, issueAction } from "../../redux/issueSlice";
 import { updateDndStatus } from "../../redux/dndSlice";
 import { DetailModal } from "../modal/DetailModal";
 
@@ -13,7 +12,7 @@ export const dragFunction = (e, type) => {
 };
 
 // component start ##############
-export const Card = ({ cardData, forceLoadingHandler }) => {
+export const Card = ({ cardData }) => {
   const dispatch = useDispatch();
   const { issue } = useSelector((state) => state.issueSlice);
   const dudStatusData = useSelector((state) => state.dndSlice.dndStatus)[0];
@@ -21,8 +20,11 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
   const deleteIssueHandler = (e, issueId) => {
     e.stopPropagation();
     if (window.confirm("삭제할까요?")) {
-      dispatch(deleteIssue(issueId));
-      forceLoadingHandler();
+      dispatch(issueAction.loadingStart());
+      setTimeout(() => {
+        dispatch(deleteIssue(issueId));
+        dispatch(issueAction.loadingEnd());
+      }, 500);
     }
   };
 
@@ -127,6 +129,7 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       if (item.id === dudStatusData.endId) {
         dropCardIndexNumber = index;
       }
+      return dropedCardIndex;
     });
 
     // new critica
@@ -155,7 +158,6 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
         showModal={showModal}
         closeModal={closeAddIssueModal}
         cardData={cardData}
-        forceLoadingHandler={forceLoadingHandler}
       />
       <DndHr
         style={

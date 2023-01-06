@@ -1,31 +1,13 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import { ModalPage } from '../../util/modal';
 import { AutoCompliteInput } from './AutoComplite';
 import { useDispatch } from 'react-redux';
 import { addIssue } from '../../redux/issueSlice';
+import useForm from '../../hooks/useForm';
 
 export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
   const dispatch = useDispatch();
-
-  // form data
-  const [form, setForm] = useState({ status: statusNum, name: '' });
-
-  // auto complite status
-  const [autoComplite, setautoComplite] = useState(false);
-
-  useEffect(() => {
-    form.name.length > 0 ? setautoComplite(true) : setautoComplite(false);
-  }, [form.name]);
-
-  // onChange form data handler
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-
-    if (name === 'status')
-      setForm((form) => ({ ...form, [name]: Number(value) }));
-    else setForm((form) => ({ ...form, [name]: value }));
-  };
+  const { form, autoComplite, setautoComplite, onChangeHandler } = useForm({ status: statusNum, name: '' });
 
   let formData = { sortId: lastSortId + 1, ...form };
 

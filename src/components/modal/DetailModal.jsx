@@ -1,31 +1,13 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import { ModalPage } from '../../util/modal';
 import { AutoCompliteInput } from './AutoComplite';
 import { useDispatch } from 'react-redux';
 import { updateIssue } from '../../redux/issueSlice';
+import useForm from '../../hooks/useForm';
 
 export const DetailModal = ({ showModal, closeModal, cardData }) => {
   const dispatch = useDispatch();
-
-  // form data
-  const [updateForm, setUpdateForm] = useState({ ...cardData });
-
-  // auto complite status
-  const [autoComplite, setautoComplite] = useState(false);
-
-  useEffect(() => {
-    updateForm.name.length > 0 ? setautoComplite(true) : setautoComplite(false);
-  }, [updateForm.name]);
-
-  // onChange form data handler
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-
-    if (name === 'status')
-      setUpdateForm((form) => ({ ...form, [name]: Number(value) }));
-    else setUpdateForm((form) => ({ ...form, [name]: value }));
-  };
+  const { form: updateForm, autoComplite, setautoComplite, onChangeHandler } = useForm({ ...cardData });
 
   let formData = { sortId: cardData.sortId, ...updateForm };
 

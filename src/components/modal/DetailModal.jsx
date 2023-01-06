@@ -82,7 +82,8 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
             type="datetime-local"
             id="deadline"
             name="deadlilne"
-            value={updateForm.deadline}
+            defaultValue={updateForm.deadline}
+            // value={updateForm.deadline}
           />
         </BottomInputWarp>
         <StatusSelect>

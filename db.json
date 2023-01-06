@@ -1,39 +1,32 @@
 {
   "issue": [
     {
-      "sortId": null,
-      "status": 2,
-      "name": "임요환환",
-      "title": "테스트1",
-      "content": "테스뜨",
-      "deadline": "2023-01-06T19:19",
-      "id": 1
-    },
-    {
-      "sortId": null,
+      "sortId": 2.9,
       "status": 1,
       "name": "이미역",
       "title": "테스트2",
       "content": "테스트2",
       "deadline": "2023-01-06T19:58",
-      "id": 2
-    },
-    {
-      "sortId": -0.1,
-      "status": 1,
-      "name": "imagedragon",
-      "title": "테스트3",
-      "content": "test3",
-      "deadline": "2023-01-06T20:12",
-      "id": 3
+      "id": 2,
+      "deadlilne": "2023-01-19T19:58"
     },
     {
       "sortId": null,
       "status": 0,
-      "name": "john",
+      "name": "imagedragon",
+      "title": "테스트3",
+      "content": "test3ㅎㅇㅎㅇ",
+      "deadline": "2023-01-06T20:12",
+      "id": 3,
+      "deadlilne": "2023-01-18T20:12"
+    },
+    {
+      "sortId": null,
+      "status": 2,
+      "name": "임요환",
       "title": "리액트 뿌시자",
       "content": "ㅎㅇㅎㅇ",
-      "deadline": "2023-01-10T23:04",
+      "deadline": "2023-01-19T00:09",
       "id": 4
     }
   ],

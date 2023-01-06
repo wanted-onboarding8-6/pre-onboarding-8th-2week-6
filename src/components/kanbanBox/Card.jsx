@@ -176,22 +176,12 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
       />
       <Container
         onClick={openAddIssueModal}
-        onDragStart={(e) => {
-          onDragStart(e);
-        }}
-        onDragEnter={(e) => {
-          onDragEnter(e);
-        }}
-        onDragLeave={(e) => {
-          onDragLeave(e);
-        }}
-        onDrop={(e) => {
-          onDrop(e);
-        }}
+        onDragStart={onDragStart}
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
         draggable
-        onDragOver={(e) => {
-          onDragOverTop(e);
-        }}
+        onDragOver={onDragOverTop}
       >
         <CardTop>
           <span>
@@ -208,11 +198,7 @@ export const Card = ({ cardData, forceLoadingHandler }) => {
         >
           <p>{cardData?.content}</p>
         </CardBody>
-        <CardFooter
-          onDragOver={(e) => {
-            onDragOverBottom(e);
-          }}
-        >
+        <CardFooter onDragOver={onDragOverBottom}>
           <span>{cardData?.name}</span>
           <span>deadline : ~ {cardData?.deadline?.replace("T", " / ")}</span>
         </CardFooter>

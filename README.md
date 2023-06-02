@@ -1,7 +1,6 @@
 # 이슈 트래킹 툴 - 원티드 프리온보딩 2주차 과제
 
-## 배포주소 :
-<a href="https://vercel.com/lee-yo-han/pre-onboarding-8th-2week-6">https://vercel.com/lee-yo-han/pre-onboarding-8th-2week-6</a>
+## 배포주소 : https://pre-onboarding-8th-2week-6.vercel.app/
 
 </br>
 
@@ -9,7 +8,7 @@
 <a href="https://github.com/LEE-YO-HAN/week2json">https://github.com/LEE-YO-HAN/week2json</a>
 
 </br></br>
-
+https://pre-onboarding-8th-2week-6.vercel.app/
 ## 6조
 
 ### Team
